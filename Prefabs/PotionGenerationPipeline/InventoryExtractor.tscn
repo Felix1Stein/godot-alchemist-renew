@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5wgymxtoegyv"]
+
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_InventoryExtractor.gd" id="1_bhlgq"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceContainer.gd" id="2_awul5"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="3_oot6b"]
+[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="4_nxncl"]
+[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="5_tafhg"]
+[ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="6_436dp"]
+[ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="7_5keyo"]
+
+[sub_resource type="Resource" id="Resource_ialku"]
+script = ExtResource("3_oot6b")
+essences = Array[Resource("res://Scripts/DataContainers/EssenceData.gd")]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
+size = Vector2(6, 6)
+
+[node name="InventoryExtractor" type="Node2D" node_paths=PackedStringArray("source_inventory", "target_essence_container")]
+script = ExtResource("1_bhlgq")
+source_inventory = NodePath("ExtractorInventory")
+target_essence_container = NodePath("ExtractorTargetEssenceContainer")
+
+[node name="ExtractorTargetEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
+script = ExtResource("2_awul5")
+essence_display = NodePath("Label")
+essence_bundle = SubResource("Resource_ialku")
+
+[node name="Label" type="Label" parent="ExtractorTargetEssenceContainer"]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -36.0
+offset_right = 32.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_nxncl")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 1
+
+[node name="Interactible" type="Area2D" parent="."]
+script = ExtResource("5_tafhg")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Interactible"]
+shape = SubResource("RectangleShape2D_bn16g")
+debug_color = Color(0.309804, 0.627451, 0, 0.419608)
+
+[node name="Sprite" type="Sprite2D" parent="Interactible"]
+texture_filter = 1
+texture = ExtResource("6_436dp")
+
+[node name="ExtractorInventory" parent="." instance=ExtResource("7_5keyo")]
+position = Vector2(0, -39)
+hide_item_selector = true
+
+[connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
+[connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]
+[connection signal="player_interacted" from="Interactible" to="." method="_on_player_interacted"]

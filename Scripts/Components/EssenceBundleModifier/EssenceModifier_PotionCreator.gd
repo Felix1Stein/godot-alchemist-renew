@@ -6,8 +6,7 @@ class_name EssenceModifierPotionCreator
 
 @export var potion_card_manager : PotionCardManager
 
-# List of all essence modifiers that will be reset after a potion has been created
-@export var reset_essence_modifiers : Array[EssenceModifier]
+signal potion_generated()
 
 
 # Generates potion from essence bundle source
@@ -19,7 +18,7 @@ func modify_essence_bundle() -> void:
 	clear_source_essence_container()
 	super.modify_essence_bundle()
 	
-	reset_all_essence_modifiers()
+	potion_generated.emit()
 
 
 # Creates a PotionData element according to specification and returns it
@@ -45,12 +44,6 @@ func create_potion_item() -> void:
 func clear_source_essence_container() -> void:
 	source_essence_container.essence_bundle.empty_essence_bundle()
 	source_essence_container.render_data()
-
-
-# Resets all essence modifiers in list
-func reset_all_essence_modifiers() -> void:
-	for essence_modifier in reset_essence_modifiers:
-		essence_modifier.reset_modifier()
 
 
 # On player interacted

@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://bc0aeeb5cj5ei"]
+
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_RandomSubtractor.gd" id="1_h2rnj"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="2_p51ik"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="3_t87xt"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceContainer.gd" id="4_83t60"]
+[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="5_bjfx6"]
+[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="6_y5xth"]
+[ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="7_85tpk"]
+
+[sub_resource type="Resource" id="Resource_8my5d"]
+script = ExtResource("2_p51ik")
+type = 6
+amount = 3
+
+[sub_resource type="Resource" id="Resource_7c8pd"]
+script = ExtResource("2_p51ik")
+type = 3
+amount = 1
+
+[sub_resource type="Resource" id="Resource_7nqso"]
+script = ExtResource("3_t87xt")
+essences = Array[ExtResource("2_p51ik")]([SubResource("Resource_8my5d"), SubResource("Resource_7c8pd")])
+
+[sub_resource type="Resource" id="Resource_8n6ao"]
+script = ExtResource("3_t87xt")
+essences = Array[ExtResource("2_p51ik")]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
+size = Vector2(6, 6)
+
+[node name="Subtractor" type="Node2D" node_paths=PackedStringArray("subtractor_source_essence_container")]
+position = Vector2(144, 0)
+script = ExtResource("1_h2rnj")
+subtractor_source_essence_container = NodePath("SubtractorSourceEssenceContainer")
+refill_essence_bundle = SubResource("Resource_7nqso")
+
+[node name="SubtractorSourceEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
+script = ExtResource("4_83t60")
+essence_display = NodePath("Label")
+essence_bundle = SubResource("Resource_8n6ao")
+
+[node name="Label" type="Label" parent="SubtractorSourceEssenceContainer"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 39.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("5_bjfx6")
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="Interactible" type="Area2D" parent="."]
+script = ExtResource("6_y5xth")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Interactible"]
+shape = SubResource("RectangleShape2D_bn16g")
+debug_color = Color(0.309804, 0.627451, 0, 0.419608)
+
+[node name="Sprite" type="Sprite2D" parent="Interactible"]
+texture_filter = 1
+texture = ExtResource("7_85tpk")
+
+[connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
+[connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]
+[connection signal="player_interacted" from="Interactible" to="." method="_on_player_interacted"]

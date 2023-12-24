@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://bt05c5urgs1ca"]
+
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_RandomSelector.gd" id="1_tx2fp"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceContainer.gd" id="2_dvpjf"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="3_ovrhc"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="4_ffldu"]
+[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="5_oo62c"]
+[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="6_xifto"]
+[ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="7_1ob3w"]
+
+[sub_resource type="Resource" id="Resource_u4ww1"]
+script = ExtResource("3_ovrhc")
+type = 6
+amount = 3
+
+[sub_resource type="Resource" id="Resource_0sc88"]
+script = ExtResource("3_ovrhc")
+type = 3
+amount = 1
+
+[sub_resource type="Resource" id="Resource_g4aii"]
+script = ExtResource("4_ffldu")
+essences = Array[ExtResource("3_ovrhc")]([SubResource("Resource_u4ww1"), SubResource("Resource_0sc88")])
+
+[sub_resource type="Resource" id="Resource_avsa0"]
+script = ExtResource("4_ffldu")
+essences = Array[ExtResource("3_ovrhc")]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
+size = Vector2(6, 6)
+
+[node name="RandomSelector" type="Node2D" node_paths=PackedStringArray("infinite_source_essence_container", "target_essence_container")]
+position = Vector2(72, 0)
+script = ExtResource("1_tx2fp")
+infinite_source_essence_container = NodePath("InfiniteSourceEssenceContainer")
+random_source_chance = 0.5
+target_essence_container = NodePath("SelectorTargetEssenceContainer")
+
+[node name="InfiniteSourceEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
+script = ExtResource("2_dvpjf")
+essence_display = NodePath("Label")
+essence_bundle = SubResource("Resource_g4aii")
+
+[node name="Label" type="Label" parent="InfiniteSourceEssenceContainer"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 39.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("5_oo62c")
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="SelectorTargetEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
+script = ExtResource("2_dvpjf")
+essence_display = NodePath("Label")
+essence_bundle = SubResource("Resource_avsa0")
+
+[node name="Label" type="Label" parent="SelectorTargetEssenceContainer"]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -36.0
+offset_right = 32.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("5_oo62c")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 1
+
+[node name="Interactible" type="Area2D" parent="."]
+script = ExtResource("6_xifto")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Interactible"]
+shape = SubResource("RectangleShape2D_bn16g")
+debug_color = Color(0.309804, 0.627451, 0, 0.419608)
+
+[node name="Sprite" type="Sprite2D" parent="Interactible"]
+texture_filter = 1
+texture = ExtResource("7_1ob3w")
+
+[connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
+[connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]
+[connection signal="player_interacted" from="Interactible" to="." method="_on_player_interacted"]

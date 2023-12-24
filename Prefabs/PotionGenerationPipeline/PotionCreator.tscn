@@ -1,0 +1,74 @@
+[gd_scene load_steps=17 format=3 uid="uid://dru6iisxs5fu1"]
+
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_PotionCreator.gd" id="1_6utg2"]
+[ext_resource type="PackedScene" uid="uid://cgvc4m4s8kl3e" path="res://Prefabs/Potion.tscn" id="2_no4yq"]
+[ext_resource type="Script" path="res://Scripts/Components/PotionCardManager.gd" id="3_r765b"]
+[ext_resource type="Resource" uid="uid://nkrutr0ubyl6" path="res://Resources/TestPotionCard.tres" id="4_v2kat"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="5_xsttq"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="6_03e4k"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="7_k5vso"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionCardData.gd" id="8_6ywq4"]
+[ext_resource type="PackedScene" uid="uid://c6dwsk64s4c0c" path="res://Prefabs/PotionCardRenderer.tscn" id="9_oaqok"]
+[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="10_1uu8w"]
+[ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="11_nui3f"]
+
+[sub_resource type="Resource" id="Resource_xrp7h"]
+script = ExtResource("5_xsttq")
+type = 13
+amount = 2
+
+[sub_resource type="Resource" id="Resource_p84mq"]
+script = ExtResource("6_03e4k")
+essences = Array[ExtResource("5_xsttq")]([SubResource("Resource_xrp7h")])
+
+[sub_resource type="Resource" id="Resource_uxsmv"]
+script = ExtResource("7_k5vso")
+max_uses = 16
+uses = 16
+usage_delay = 0.1
+damage = 1
+speed = 500.0
+name = "ITEM NAME"
+description = "ITEM DESCRIPTION"
+gold_value = 0
+
+[sub_resource type="Resource" id="Resource_essqb"]
+script = ExtResource("8_6ywq4")
+name = "TEST POTION OF HIGH SPEED DOOM"
+description = "ADDS SPEEEEEED TO YOUR POTION"
+essence_requirement = SubResource("Resource_p84mq")
+potion_effect = SubResource("Resource_uxsmv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
+size = Vector2(6, 6)
+
+[node name="PotionCreator" type="Node2D" node_paths=PackedStringArray("drop_position", "potion_card_manager")]
+position = Vector2(216, 0)
+script = ExtResource("1_6utg2")
+potion_prefab = ExtResource("2_no4yq")
+drop_position = NodePath("DropPosition")
+potion_card_manager = NodePath("PotionCardManager")
+
+[node name="PotionCardManager" type="Node2D" parent="."]
+position = Vector2(40, 0)
+script = ExtResource("3_r765b")
+potion_cards = Array[ExtResource("8_6ywq4")]([ExtResource("4_v2kat"), SubResource("Resource_essqb")])
+potion_card_prefab = ExtResource("9_oaqok")
+
+[node name="Interactible" type="Area2D" parent="."]
+script = ExtResource("10_1uu8w")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Interactible"]
+shape = SubResource("RectangleShape2D_bn16g")
+debug_color = Color(0.309804, 0.627451, 0, 0.419608)
+
+[node name="Sprite" type="Sprite2D" parent="Interactible"]
+texture_filter = 1
+texture = ExtResource("11_nui3f")
+
+[node name="DropPosition" type="Node2D" parent="."]
+position = Vector2(0, 48)
+
+[connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
+[connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]
+[connection signal="player_interacted" from="Interactible" to="." method="_on_player_interacted"]

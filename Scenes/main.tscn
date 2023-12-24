@@ -1,96 +1,14 @@
-[gd_scene load_steps=36 format=3 uid="uid://brgo0jichi0f3"]
+[gd_scene load_steps=10 format=3 uid="uid://brgo0jichi0f3"]
 
 [ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
 [ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
-[ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="2_sqe1m"]
+[ext_resource type="Script" path="res://Scripts/Components/PotionGenerationPipeline.gd" id="2_lyqdw"]
 [ext_resource type="Resource" uid="uid://bxv5kv8ly5la5" path="res://Resources/MushroomResource.tres" id="3_5rcix"]
-[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="3_txml3"]
-[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_InventoryExtractor.gd" id="4_yq3i4"]
-[ext_resource type="Script" path="res://Scripts/Components/EssenceContainer.gd" id="5_8sm3a"]
-[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="5_dwuxu"]
-[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="5_l1ewb"]
+[ext_resource type="PackedScene" uid="uid://b5wgymxtoegyv" path="res://Prefabs/PotionGenerationPipeline/InventoryExtractor.tscn" id="3_e2nb4"]
+[ext_resource type="PackedScene" uid="uid://bt05c5urgs1ca" path="res://Prefabs/PotionGenerationPipeline/RandomSelector.tscn" id="4_dg4x4"]
+[ext_resource type="PackedScene" uid="uid://bc0aeeb5cj5ei" path="res://Prefabs/PotionGenerationPipeline/Subtractor.tscn" id="5_40o3a"]
 [ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
-[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="7_amiyc"]
-[ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="8_idfyx"]
-[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_RandomSelector.gd" id="9_xl10c"]
-[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_RandomSubtractor.gd" id="11_mas85"]
-[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_PotionCreator.gd" id="12_k2vf1"]
-[ext_resource type="PackedScene" uid="uid://cgvc4m4s8kl3e" path="res://Prefabs/Potion.tscn" id="13_cjy6l"]
-[ext_resource type="PackedScene" uid="uid://c6dwsk64s4c0c" path="res://Prefabs/PotionCardRenderer.tscn" id="14_uhvbo"]
-[ext_resource type="Script" path="res://Scripts/Components/PotionCardManager.gd" id="14_wwr02"]
-[ext_resource type="Resource" uid="uid://nkrutr0ubyl6" path="res://Resources/TestPotionCard.tres" id="15_3adcf"]
-[ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="16_d74fs"]
-[ext_resource type="Script" path="res://Scripts/DataContainers/PotionCardData.gd" id="17_so7xx"]
-
-[sub_resource type="Resource" id="Resource_ialku"]
-script = ExtResource("5_l1ewb")
-essences = Array[ExtResource("5_dwuxu")]([])
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
-size = Vector2(6, 6)
-
-[sub_resource type="Resource" id="Resource_u4ww1"]
-script = ExtResource("5_dwuxu")
-type = 6
-amount = 3
-
-[sub_resource type="Resource" id="Resource_0sc88"]
-script = ExtResource("5_dwuxu")
-type = 3
-amount = 1
-
-[sub_resource type="Resource" id="Resource_g4aii"]
-script = ExtResource("5_l1ewb")
-essences = Array[ExtResource("5_dwuxu")]([SubResource("Resource_u4ww1"), SubResource("Resource_0sc88")])
-
-[sub_resource type="Resource" id="Resource_avsa0"]
-script = ExtResource("5_l1ewb")
-essences = Array[ExtResource("5_dwuxu")]([])
-
-[sub_resource type="Resource" id="Resource_8my5d"]
-script = ExtResource("5_dwuxu")
-type = 6
-amount = 3
-
-[sub_resource type="Resource" id="Resource_7c8pd"]
-script = ExtResource("5_dwuxu")
-type = 3
-amount = 1
-
-[sub_resource type="Resource" id="Resource_7nqso"]
-script = ExtResource("5_l1ewb")
-essences = Array[ExtResource("5_dwuxu")]([SubResource("Resource_8my5d"), SubResource("Resource_7c8pd")])
-
-[sub_resource type="Resource" id="Resource_8n6ao"]
-script = ExtResource("5_l1ewb")
-essences = Array[ExtResource("5_dwuxu")]([])
-
-[sub_resource type="Resource" id="Resource_xrp7h"]
-script = ExtResource("5_dwuxu")
-type = 13
-amount = 2
-
-[sub_resource type="Resource" id="Resource_p84mq"]
-script = ExtResource("5_l1ewb")
-essences = Array[ExtResource("5_dwuxu")]([SubResource("Resource_xrp7h")])
-
-[sub_resource type="Resource" id="Resource_uxsmv"]
-script = ExtResource("16_d74fs")
-max_uses = 16
-uses = 16
-usage_delay = 0.1
-damage = 1
-speed = 500.0
-name = "ITEM NAME"
-description = "ITEM DESCRIPTION"
-gold_value = 0
-
-[sub_resource type="Resource" id="Resource_essqb"]
-script = ExtResource("17_so7xx")
-name = "TEST POTION OF HIGH SPEED DOOM"
-description = "ADDS SPEEEEEED TO YOUR POTION"
-essence_requirement = SubResource("Resource_p84mq")
-potion_effect = SubResource("Resource_uxsmv")
+[ext_resource type="PackedScene" uid="uid://dru6iisxs5fu1" path="res://Prefabs/PotionGenerationPipeline/PotionCreator.tscn" id="6_k8wag"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -99,180 +17,11 @@ potion_effect = SubResource("Resource_uxsmv")
 [node name="Player" parent="Entities" instance=ExtResource("1_uw7ri")]
 position = Vector2(104, 176)
 
-[node name="InventoryExtractor" type="Node2D" parent="Entities" node_paths=PackedStringArray("source_inventory", "target_essence_container")]
-position = Vector2(152, 128)
-script = ExtResource("4_yq3i4")
-source_inventory = NodePath("ExtractorInventory")
-target_essence_container = NodePath("ExtractorTargetEssenceContainer")
-
-[node name="ExtractorTargetEssenceContainer" type="Node2D" parent="Entities/InventoryExtractor" node_paths=PackedStringArray("essence_display")]
-script = ExtResource("5_8sm3a")
-essence_display = NodePath("Label")
-essence_bundle = SubResource("Resource_ialku")
-
-[node name="Label" type="Label" parent="Entities/InventoryExtractor/ExtractorTargetEssenceContainer"]
-texture_filter = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -36.0
-offset_right = 32.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("7_amiyc")
-horizontal_alignment = 1
-vertical_alignment = 2
-autowrap_mode = 1
-
-[node name="Interactible" type="Area2D" parent="Entities/InventoryExtractor"]
-script = ExtResource("3_txml3")
-
-[node name="CollisionBox" type="CollisionShape2D" parent="Entities/InventoryExtractor/Interactible"]
-shape = SubResource("RectangleShape2D_bn16g")
-debug_color = Color(0.309804, 0.627451, 0, 0.419608)
-
-[node name="Sprite" type="Sprite2D" parent="Entities/InventoryExtractor/Interactible"]
-texture_filter = 1
-texture = ExtResource("8_idfyx")
-
-[node name="ExtractorInventory" parent="Entities/InventoryExtractor" instance=ExtResource("2_sqe1m")]
-position = Vector2(0, -39)
-hide_item_selector = true
-
-[node name="RandomSelector" type="Node2D" parent="Entities" node_paths=PackedStringArray("infinite_source_essence_container", "source_essence_container", "target_essence_container")]
-position = Vector2(224, 128)
-script = ExtResource("9_xl10c")
-infinite_source_essence_container = NodePath("InfiniteSourceEssenceContainer")
-random_source_chance = 0.5
-source_essence_container = NodePath("../InventoryExtractor/ExtractorTargetEssenceContainer")
-target_essence_container = NodePath("SelectorTargetEssenceContainer")
-
-[node name="InfiniteSourceEssenceContainer" type="Node2D" parent="Entities/RandomSelector" node_paths=PackedStringArray("essence_display")]
-script = ExtResource("5_8sm3a")
-essence_display = NodePath("Label")
-essence_bundle = SubResource("Resource_g4aii")
-
-[node name="Label" type="Label" parent="Entities/RandomSelector/InfiniteSourceEssenceContainer"]
-texture_filter = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -32.0
-offset_top = 16.0
-offset_right = 32.0
-offset_bottom = 39.0
-grow_horizontal = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("7_amiyc")
-horizontal_alignment = 1
-autowrap_mode = 1
-
-[node name="SelectorTargetEssenceContainer" type="Node2D" parent="Entities/RandomSelector" node_paths=PackedStringArray("essence_display")]
-script = ExtResource("5_8sm3a")
-essence_display = NodePath("Label")
-essence_bundle = SubResource("Resource_avsa0")
-
-[node name="Label" type="Label" parent="Entities/RandomSelector/SelectorTargetEssenceContainer"]
-texture_filter = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -36.0
-offset_right = 32.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("7_amiyc")
-horizontal_alignment = 1
-vertical_alignment = 2
-autowrap_mode = 1
-
-[node name="Interactible" type="Area2D" parent="Entities/RandomSelector"]
-script = ExtResource("3_txml3")
-
-[node name="CollisionBox" type="CollisionShape2D" parent="Entities/RandomSelector/Interactible"]
-shape = SubResource("RectangleShape2D_bn16g")
-debug_color = Color(0.309804, 0.627451, 0, 0.419608)
-
-[node name="Sprite" type="Sprite2D" parent="Entities/RandomSelector/Interactible"]
-texture_filter = 1
-texture = ExtResource("8_idfyx")
-
-[node name="Subtractor" type="Node2D" parent="Entities" node_paths=PackedStringArray("subtractor_source_essence_container", "source_essence_container")]
-position = Vector2(296, 128)
-script = ExtResource("11_mas85")
-subtractor_source_essence_container = NodePath("SubtractorSourceEssenceContainer")
-refill_essence_bundle = SubResource("Resource_7nqso")
-source_essence_container = NodePath("../RandomSelector/SelectorTargetEssenceContainer")
-
-[node name="SubtractorSourceEssenceContainer" type="Node2D" parent="Entities/Subtractor" node_paths=PackedStringArray("essence_display")]
-script = ExtResource("5_8sm3a")
-essence_display = NodePath("Label")
-essence_bundle = SubResource("Resource_8n6ao")
-
-[node name="Label" type="Label" parent="Entities/Subtractor/SubtractorSourceEssenceContainer"]
-texture_filter = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -32.0
-offset_top = 16.0
-offset_right = 32.0
-offset_bottom = 39.0
-grow_horizontal = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("7_amiyc")
-horizontal_alignment = 1
-autowrap_mode = 1
-
-[node name="Interactible" type="Area2D" parent="Entities/Subtractor"]
-script = ExtResource("3_txml3")
-
-[node name="CollisionBox" type="CollisionShape2D" parent="Entities/Subtractor/Interactible"]
-shape = SubResource("RectangleShape2D_bn16g")
-debug_color = Color(0.309804, 0.627451, 0, 0.419608)
-
-[node name="Sprite" type="Sprite2D" parent="Entities/Subtractor/Interactible"]
-texture_filter = 1
-texture = ExtResource("8_idfyx")
-
-[node name="PotionCreator" type="Node2D" parent="Entities" node_paths=PackedStringArray("drop_position", "potion_card_manager", "reset_essence_modifiers", "source_essence_container")]
-position = Vector2(368, 128)
-script = ExtResource("12_k2vf1")
-potion_prefab = ExtResource("13_cjy6l")
-drop_position = NodePath("DropPosition")
-potion_card_manager = NodePath("PotionCardManager")
-reset_essence_modifiers = [NodePath("../InventoryExtractor"), NodePath("../RandomSelector"), NodePath("../Subtractor"), NodePath(".")]
-source_essence_container = NodePath("../RandomSelector/SelectorTargetEssenceContainer")
-
-[node name="PotionCardManager" type="Node2D" parent="Entities/PotionCreator"]
-position = Vector2(40, 0)
-script = ExtResource("14_wwr02")
-potion_cards = Array[ExtResource("17_so7xx")]([ExtResource("15_3adcf"), SubResource("Resource_essqb")])
-potion_card_prefab = ExtResource("14_uhvbo")
-
-[node name="Interactible" type="Area2D" parent="Entities/PotionCreator"]
-script = ExtResource("3_txml3")
-
-[node name="CollisionBox" type="CollisionShape2D" parent="Entities/PotionCreator/Interactible"]
-shape = SubResource("RectangleShape2D_bn16g")
-debug_color = Color(0.309804, 0.627451, 0, 0.419608)
-
-[node name="Sprite" type="Sprite2D" parent="Entities/PotionCreator/Interactible"]
-texture_filter = 1
-texture = ExtResource("8_idfyx")
-
-[node name="DropPosition" type="Node2D" parent="Entities/PotionCreator"]
-position = Vector2(0, 48)
+[node name="PotionGenerationPipeline" type="Node2D" parent="Entities"]
+position = Vector2(96, 104)
+script = ExtResource("2_lyqdw")
+essence_modifier_prefabs = Array[PackedScene]([ExtResource("3_e2nb4"), ExtResource("4_dg4x4"), ExtResource("5_40o3a"), ExtResource("6_k8wag")])
+offset = Vector2(75, 0)
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -310,16 +59,3 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_iq147")
 text = "HP: X/X"
 vertical_alignment = 2
-
-[connection signal="area_entered" from="Entities/InventoryExtractor/Interactible" to="Entities/InventoryExtractor/Interactible" method="_on_area_entered"]
-[connection signal="area_exited" from="Entities/InventoryExtractor/Interactible" to="Entities/InventoryExtractor/Interactible" method="_on_area_exited"]
-[connection signal="player_interacted" from="Entities/InventoryExtractor/Interactible" to="Entities/InventoryExtractor" method="_on_player_interacted"]
-[connection signal="area_entered" from="Entities/RandomSelector/Interactible" to="Entities/RandomSelector/Interactible" method="_on_area_entered"]
-[connection signal="area_exited" from="Entities/RandomSelector/Interactible" to="Entities/RandomSelector/Interactible" method="_on_area_exited"]
-[connection signal="player_interacted" from="Entities/RandomSelector/Interactible" to="Entities/RandomSelector" method="_on_player_interacted"]
-[connection signal="area_entered" from="Entities/Subtractor/Interactible" to="Entities/Subtractor/Interactible" method="_on_area_entered"]
-[connection signal="area_exited" from="Entities/Subtractor/Interactible" to="Entities/Subtractor/Interactible" method="_on_area_exited"]
-[connection signal="player_interacted" from="Entities/Subtractor/Interactible" to="Entities/Subtractor" method="_on_player_interacted"]
-[connection signal="area_entered" from="Entities/PotionCreator/Interactible" to="Entities/PotionCreator/Interactible" method="_on_area_entered"]
-[connection signal="area_exited" from="Entities/PotionCreator/Interactible" to="Entities/PotionCreator/Interactible" method="_on_area_exited"]
-[connection signal="player_interacted" from="Entities/PotionCreator/Interactible" to="Entities/PotionCreator" method="_on_player_interacted"]

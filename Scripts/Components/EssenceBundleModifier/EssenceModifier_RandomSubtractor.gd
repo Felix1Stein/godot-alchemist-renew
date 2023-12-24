@@ -28,6 +28,13 @@ func modify_essence_bundle() -> void:
 	super.modify_essence_bundle()
 
 
+# Links essence modifier with previous element to configure essence source and target
+func link_with_previous(previous_essence_modifier : EssenceModifier) -> void:
+	# only operates on previous container, thus source and target are identical
+	source_essence_container = previous_essence_modifier.target_essence_container
+	target_essence_container = previous_essence_modifier.target_essence_container
+
+
 # Resets the essence modifier to its original state, refills source, e.g. after a potion has been created
 func reset_modifier() -> void:
 	super.reset_modifier()
