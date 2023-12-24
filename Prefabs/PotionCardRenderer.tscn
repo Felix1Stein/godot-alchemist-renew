@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6dwsk64s4c0c"]
+
+[ext_resource type="Script" path="res://Scripts/Components/PotionCardRenderer.gd" id="1_wkrlr"]
+[ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="2_k2frp"]
+[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="3_2imx2"]
+
+[node name="PotionCardRenderer" type="Node2D" node_paths=PackedStringArray("name_display", "essence_requirement_display", "effect_display")]
+script = ExtResource("1_wkrlr")
+name_display = NodePath("Name")
+essence_requirement_display = NodePath("EssenceRequirement")
+effect_display = NodePath("Effect")
+
+[node name="Name" type="Label" parent="."]
+texture_filter = 1
+offset_right = 96.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_k2frp")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="EssenceRequirementTitle" type="Label" parent="."]
+texture_filter = 1
+offset_top = 22.0
+offset_right = 80.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.764706, 0.796078, 0.839216, 1)
+theme_override_fonts/font = ExtResource("2_k2frp")
+text = "REQUIRES:"
+
+[node name="EssenceRequirement" type="Label" parent="."]
+texture_filter = 1
+offset_left = 32.0
+offset_top = 20.0
+offset_right = 96.0
+offset_bottom = 43.0
+theme_override_fonts/font = ExtResource("3_2imx2")
+horizontal_alignment = 2
+autowrap_mode = 1
+
+[node name="Effect" type="Label" parent="."]
+texture_filter = 1
+offset_top = 35.0
+offset_right = 96.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.764706, 0.796078, 0.839216, 1)
+theme_override_fonts/font = ExtResource("2_k2frp")
+autowrap_mode = 2

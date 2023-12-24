@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://dnpwuarnje8f4"]
+
+[ext_resource type="Script" path="res://Scripts/Components/PlayerManager.gd" id="1_0hqv5"]
+[ext_resource type="Resource" uid="uid://cx2iej1ncu50t" path="res://Resources/PlayerResource.tres" id="2_wscap"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerMovement.gd" id="3_tkdwy"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerInventoryManager.gd" id="4_2ajif"]
+[ext_resource type="Script" path="res://Scripts/Components/AttackManager.gd" id="4_ge5q2"]
+[ext_resource type="Texture2D" uid="uid://cy2xl0vwco18c" path="res://Assets/Characters/Wizzard.png" id="4_kcavx"]
+[ext_resource type="PackedScene" uid="uid://df3h7qev1b10s" path="res://Prefabs/Projectile.tscn" id="5_m6eus"]
+[ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="5_q7ju7"]
+[ext_resource type="PackedScene" uid="uid://dwrxxsspbsq1f" path="res://Prefabs/Inventory_Equipment.tscn" id="6_2u3sn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmpq1"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1nrs"]
+size = Vector2(18, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v2hc"]
+size = Vector2(18, 19)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_movement", "player_inventory_manager", "sprite")]
+script = ExtResource("1_0hqv5")
+player_data = ExtResource("2_wscap")
+player_movement = NodePath("PlayerMovement")
+player_inventory_manager = NodePath("PlayerInventoryManager")
+sprite = NodePath("Sprite")
+
+[node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player_manager")]
+script = ExtResource("3_tkdwy")
+player_manager = NodePath("..")
+
+[node name="PlayerInventoryManager" type="Node" parent="." node_paths=PackedStringArray("player_manager", "inventory", "equipment_inventory", "attack_manager_primary", "attack_manager_secondary")]
+script = ExtResource("4_2ajif")
+player_manager = NodePath("..")
+inventory = NodePath("../Inventory")
+equipment_inventory = NodePath("../Equipment_Inventory")
+attack_manager_primary = NodePath("../AttackManager_Primary")
+attack_manager_secondary = NodePath("../AttackManager_Secondary")
+
+[node name="AttackManager_Primary" type="Node" parent="."]
+script = ExtResource("4_ge5q2")
+projectile_prefab = ExtResource("5_m6eus")
+
+[node name="AttackManager_Secondary" type="Node" parent="."]
+script = ExtResource("4_ge5q2")
+projectile_prefab = ExtResource("5_m6eus")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("4_kcavx")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vmpq1")
+debug_color = Color(0, 0, 0, 0.454902)
+
+[node name="HealthComponent" type="Area2D" parent="."]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_h1nrs")
+debug_color = Color(0.921569, 0, 0.254902, 0.227451)
+
+[node name="AttackComponent" type="Area2D" parent="."]
+
+[node name="Attackbox" type="CollisionShape2D" parent="AttackComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_7v2hc")
+debug_color = Color(0.87451, 0.34902, 0.294118, 0.270588)
+
+[node name="Inventory" parent="." instance=ExtResource("5_q7ju7")]
+position = Vector2(0, 1)
+collection_item_types = 1
+
+[node name="Equipment_Inventory" parent="." instance=ExtResource("6_2u3sn")]
+position = Vector2(0, 1)
+collection_item_types = 2

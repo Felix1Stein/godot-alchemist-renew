@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://n04gtrratgfj"]
+
+[ext_resource type="Script" path="res://Scripts/Components/Item.gd" id="1_kcuyx"]
+[ext_resource type="PackedScene" uid="uid://g2wo812uul8q" path="res://Prefabs/ItemRenderer.tscn" id="2_3s12g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fj514"]
+radius = 6.0
+
+[node name="Item" type="Area2D" node_paths=PackedStringArray("item_renderer")]
+script = ExtResource("1_kcuyx")
+item_renderer = NodePath("ItemRenderer")
+
+[node name="ItemRenderer" parent="." instance=ExtResource("2_3s12g")]
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fj514")

@@ -1,0 +1,97 @@
+[gd_scene load_steps=16 format=3 uid="uid://brgo0jichi0f3"]
+
+[ext_resource type="Script" path="res://Scripts/Components/PlayerManager.gd" id="1_cvkfm"]
+[ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/IngredientData.gd" id="2_0gj50"]
+[ext_resource type="Resource" uid="uid://cx2iej1ncu50t" path="res://Resources/PlayerResource.tres" id="2_de5c7"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="2_mdfsp"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerMovement.gd" id="2_xk6gc"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="3_073ol"]
+[ext_resource type="Texture2D" uid="uid://8aokdwjrtdoh" path="res://Assets/Items/Item_Mushroom_Violet.png" id="3_mgh02"]
+[ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
+
+[sub_resource type="Resource" id="Resource_huy8k"]
+script = ExtResource("2_mdfsp")
+type = 13
+amount = 3
+
+[sub_resource type="Resource" id="Resource_bno1d"]
+script = ExtResource("2_mdfsp")
+type = 8
+amount = 2
+
+[sub_resource type="Resource" id="Resource_pg0my"]
+script = ExtResource("2_mdfsp")
+type = 0
+amount = 1
+
+[sub_resource type="Resource" id="Resource_rppsd"]
+script = ExtResource("2_mdfsp")
+type = 1
+amount = 2
+
+[sub_resource type="Resource" id="Resource_pwt1k"]
+script = ExtResource("3_073ol")
+essences = Array[ExtResource("2_mdfsp")]([SubResource("Resource_huy8k"), SubResource("Resource_bno1d"), SubResource("Resource_pg0my"), SubResource("Resource_rppsd")])
+
+[sub_resource type="Resource" id="Resource_yjfwn"]
+script = ExtResource("2_0gj50")
+essence_bundle = SubResource("Resource_pwt1k")
+name = "ITEM NAME"
+description = "ITEM DESCRIPTION"
+texture = ExtResource("3_mgh02")
+gold_value = 0
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="Entities" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_cvkfm")
+player_data = ExtResource("2_de5c7")
+sprite = NodePath("Sprite")
+
+[node name="PlayerMovement" type="Node" parent="Entities/Player"]
+script = ExtResource("2_xk6gc")
+
+[node name="Sprite" type="Sprite2D" parent="Entities/Player"]
+texture_filter = 1
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Entities/Player"]
+
+[node name="HealthComponent" type="Area2D" parent="Entities/Player"]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Entities/Player/HealthComponent"]
+
+[node name="AttackComponent" type="Area2D" parent="Entities/Player"]
+
+[node name="Attackbox" type="CollisionShape2D" parent="Entities/Player/AttackComponent"]
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Ingredient" parent="Items" instance=ExtResource("1_nll84")]
+position = Vector2(170, 94)
+item_data = SubResource("Resource_yjfwn")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerUI" type="Label" parent="UI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 333.0
+offset_right = 104.0
+offset_bottom = 356.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_iq147")
+text = "HP: X/X"
+vertical_alignment = 2

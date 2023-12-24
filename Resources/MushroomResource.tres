@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="IngredientData" load_steps=10 format=3 uid="uid://bxv5kv8ly5la5"]
+
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="1_b08rw"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="2_rtcni"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/IngredientData.gd" id="3_fgl64"]
+[ext_resource type="Texture2D" uid="uid://8aokdwjrtdoh" path="res://Assets/Items/Item_Mushroom_Violet.png" id="4_of2fi"]
+
+[sub_resource type="Resource" id="Resource_huy8k"]
+script = ExtResource("1_b08rw")
+type = 13
+amount = 3
+
+[sub_resource type="Resource" id="Resource_bno1d"]
+script = ExtResource("1_b08rw")
+type = 8
+amount = 2
+
+[sub_resource type="Resource" id="Resource_pg0my"]
+script = ExtResource("1_b08rw")
+type = 0
+amount = 1
+
+[sub_resource type="Resource" id="Resource_rppsd"]
+script = ExtResource("1_b08rw")
+type = 1
+amount = 2
+
+[sub_resource type="Resource" id="Resource_pwt1k"]
+script = ExtResource("2_rtcni")
+essences = Array[ExtResource("1_b08rw")]([SubResource("Resource_huy8k"), SubResource("Resource_bno1d"), SubResource("Resource_pg0my"), SubResource("Resource_rppsd")])
+
+[resource]
+script = ExtResource("3_fgl64")
+essence_bundle = SubResource("Resource_pwt1k")
+name = "MUSHROOM"
+description = "MAGIC"
+texture = ExtResource("4_of2fi")
+gold_value = null

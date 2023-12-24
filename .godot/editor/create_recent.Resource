@@ -1,0 +1,2 @@
+Resource
+CompressedTexture2D

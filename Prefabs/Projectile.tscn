@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://df3h7qev1b10s"]
+
+[ext_resource type="Script" path="res://Scripts/Components/Projectile.gd" id="1_rs14p"]
+[ext_resource type="Texture2D" uid="uid://b0djf7ak4wsq2" path="res://Assets/Characters/Skull.png" id="2_1s5g2"]
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_rs14p")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_1s5g2")

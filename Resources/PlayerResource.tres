@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=13 format=3 uid="uid://cx2iej1ncu50t"]
+
+[ext_resource type="Script" path="res://Scripts/DataContainers/CharacterMovementData.gd" id="1_fswep"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/HealthData.gd" id="2_wya41"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/InputBindingData.gd" id="3_itskq"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/InventoryData.gd" id="3_t2xli"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PlayerData.gd" id="4_epkx2"]
+[ext_resource type="Texture2D" uid="uid://cy2xl0vwco18c" path="res://Assets/Characters/Wizzard.png" id="5_w4rja"]
+
+[sub_resource type="Curve" id="Curve_sml6q"]
+max_value = 6.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.05, 6), 0.0, 0.0, 0, 0, Vector2(0.2, 5), 0.0, 0.0, 0, 0, Vector2(0.3, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Resource" id="Resource_ow6ag"]
+script = ExtResource("1_fswep")
+speed = 140.0
+dash_speed_profile = SubResource("Curve_sml6q")
+dash_max_duration = 0.6
+dash_max_regeneration = 1.2
+
+[sub_resource type="Resource" id="Resource_lw3wd"]
+script = ExtResource("3_t2xli")
+slot_count = 0
+items = Array[Resource("res://Scripts/DataContainers/ItemData.gd")]([])
+
+[sub_resource type="Resource" id="Resource_qgn7e"]
+script = ExtResource("2_wya41")
+max_health_points = 10
+health_points = 10
+
+[sub_resource type="Resource" id="Resource_cmjqv"]
+script = ExtResource("3_itskq")
+input_movement_map = {
+0: "move_right_p1",
+1: "move_left_p1",
+2: "move_down_p1",
+3: "move_up_p1",
+4: "dash_p1",
+5: "interact_p1",
+6: "toggle_inventory_p1",
+7: "attack_p1",
+8: "attack_alternate_p1",
+9: "toggle_tooltips"
+}
+
+[sub_resource type="Resource" id="Resource_vr7hp"]
+script = ExtResource("3_t2xli")
+slot_count = 0
+items = Array[Resource("res://Scripts/DataContainers/ItemData.gd")]([])
+
+[resource]
+script = ExtResource("4_epkx2")
+player_name = "PLAYER 1"
+texture = ExtResource("5_w4rja")
+health = SubResource("Resource_qgn7e")
+inventory = SubResource("Resource_vr7hp")
+equipment_inventory = SubResource("Resource_lw3wd")
+character_movement = SubResource("Resource_ow6ag")
+input_binding = SubResource("Resource_cmjqv")

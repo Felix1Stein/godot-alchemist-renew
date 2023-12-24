@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnpwuarnje8f4"]
+
+[ext_resource type="Script" path="res://Scripts/Components/PlayerManager.gd" id="1_0hqv5"]
+[ext_resource type="Resource" uid="uid://cx2iej1ncu50t" path="res://Resources/PlayerResource.tres" id="2_wscap"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerMovement.gd" id="3_tkdwy"]
+[ext_resource type="Texture2D" uid="uid://cy2xl0vwco18c" path="res://Assets/Characters/Wizzard.png" id="4_kcavx"]
+[ext_resource type="Script" path="res://Scripts/Components/Inventory.gd" id="5_3ybdw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmpq1"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1nrs"]
+size = Vector2(18, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v2hc"]
+size = Vector2(18, 19)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yp4ax"]
+radius = 16.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "sprite")]
+script = ExtResource("1_0hqv5")
+player_data = ExtResource("2_wscap")
+inventory = NodePath("Inventory")
+sprite = NodePath("Sprite")
+
+[node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player_manager")]
+script = ExtResource("3_tkdwy")
+player_manager = NodePath("..")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("4_kcavx")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vmpq1")
+debug_color = Color(0, 0, 0, 0.454902)
+
+[node name="HealthComponent" type="Area2D" parent="."]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_h1nrs")
+debug_color = Color(0.921569, 0, 0.254902, 0.227451)
+
+[node name="AttackComponent" type="Area2D" parent="."]
+
+[node name="Attackbox" type="CollisionShape2D" parent="AttackComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_7v2hc")
+debug_color = Color(0.87451, 0.34902, 0.294118, 0.270588)
+
+[node name="Inventory" type="Area2D" parent="." node_paths=PackedStringArray("item_render_node", "drop_position_node")]
+script = ExtResource("5_3ybdw")
+item_render_node = NodePath("ItemRenderNode")
+drop_position_node = NodePath("ItemDropPosition")
+
+[node name="ItemDropPosition" type="Node2D" parent="Inventory"]
+position = Vector2(0, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory"]
+shape = SubResource("CircleShape2D_yp4ax")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="ItemRenderNode" type="Node2D" parent="Inventory"]
+
+[connection signal="area_entered" from="Inventory" to="Inventory" method="_on_area_entered"]

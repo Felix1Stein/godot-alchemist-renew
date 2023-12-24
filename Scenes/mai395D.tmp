@@ -1,0 +1,58 @@
+[gd_scene load_steps=14 format=3 uid="uid://brgo0jichi0f3"]
+
+[ext_resource type="Script" path="res://Scripts/Testing/EssenceBundleTester.gd" id="1_773r1"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="2_paqgn"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="3_8l7ty"]
+
+[sub_resource type="Resource" id="Resource_ikbnp"]
+script = ExtResource("2_paqgn")
+type = 0
+amount = 2
+
+[sub_resource type="Resource" id="Resource_tqql5"]
+script = ExtResource("2_paqgn")
+type = 2
+amount = 2
+
+[sub_resource type="Resource" id="Resource_d6m3n"]
+script = ExtResource("2_paqgn")
+type = 6
+amount = 4
+
+[sub_resource type="Resource" id="Resource_1hyf6"]
+script = ExtResource("3_8l7ty")
+essences = Array[ExtResource("2_paqgn")]([SubResource("Resource_ikbnp"), SubResource("Resource_tqql5"), SubResource("Resource_d6m3n")])
+
+[sub_resource type="Resource" id="Resource_hdag4"]
+script = ExtResource("2_paqgn")
+type = 0
+amount = 3
+
+[sub_resource type="Resource" id="Resource_ffe57"]
+script = ExtResource("2_paqgn")
+type = 8
+amount = 1
+
+[sub_resource type="Resource" id="Resource_ad0vg"]
+script = ExtResource("3_8l7ty")
+essences = Array[ExtResource("2_paqgn")]([SubResource("Resource_hdag4"), SubResource("Resource_ffe57")])
+
+[sub_resource type="Resource" id="Resource_dd5a0"]
+script = ExtResource("2_paqgn")
+type = 0
+amount = 2
+
+[sub_resource type="Resource" id="Resource_q8ebt"]
+script = ExtResource("2_paqgn")
+type = 2
+amount = 2
+
+[sub_resource type="Resource" id="Resource_jxa57"]
+script = ExtResource("3_8l7ty")
+essences = Array[ExtResource("2_paqgn")]([SubResource("Resource_dd5a0"), SubResource("Resource_q8ebt")])
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_773r1")
+essence_bundle = SubResource("Resource_1hyf6")
+essence_bundle_add = SubResource("Resource_ad0vg")
+essence_bundle_subtract = SubResource("Resource_jxa57")

@@ -1,0 +1,83 @@
+[gd_scene load_steps=34 format=3 uid="uid://brgo0jichi0f3"]
+
+[ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
+[ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
+[ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="2_sqe1m"]
+[ext_resource type="Resource" uid="uid://bxv5kv8ly5la5" path="res://Resources/MushroomResource.tres" id="3_5rcix"]
+[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="3_txml3"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_InventoryExtractor.gd" id="4_yq3i4"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceContainer.gd" id="5_8sm3a"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="5_dwuxu"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="5_l1ewb"]
+[ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
+[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="7_amiyc"]
+[ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="8_idfyx"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_RandomSelector.gd" id="9_xl10c"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_RandomSubtractor.gd" id="11_mas85"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_PotionCreator.gd" id="12_k2vf1"]
+[ext_resource type="PackedScene" uid="uid://cgvc4m4s8kl3e" path="res://Prefabs/Potion.tscn" id="13_cjy6l"]
+[ext_resource type="PackedScene" uid="uid://c6dwsk64s4c0c" path="res://Prefabs/PotionCardRenderer.tscn" id="14_uhvbo"]
+[ext_resource type="Script" path="res://Scripts/Components/PotionCardManager.gd" id="14_wwr02"]
+[ext_resource type="Resource" uid="uid://nkrutr0ubyl6" path="res://Resources/TestPotionCard.tres" id="15_3adcf"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="16_d74fs"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionCardData.gd" id="17_so7xx"]
+
+[sub_resource type="Resource" id="Resource_ialku"]
+script = ExtResource("5_l1ewb")
+essences = Array[ExtResource("5_dwuxu")]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
+size = Vector2(6, 6)
+
+[sub_resource type="Resource" id="Resource_u4ww1"]
+script = ExtResource("5_dwuxu")
+type = 6
+amount = 3
+
+[sub_resource type="Resource" id="Resource_0sc88"]
+script = ExtResource("5_dwuxu")
+type = 3
+amount = 1
+
+[sub_resource type="Resource" id="Resource_g4aii"]
+script = ExtResource("5_l1ewb")
+essences = Array[ExtResource("5_dwuxu")]([SubResource("Resource_u4ww1"), SubResource("Resource_0sc88")])
+
+[sub_resource type="Resource" id="Resource_avsa0"]
+script = ExtResource("5_l1ewb")
+essences = Array[ExtResource("5_dwuxu")]([])
+
+[sub_resource type="Resource" id="Resource_vyiku"]
+script = ExtResource("5_dwuxu")
+type = 6
+amount = 3
+
+[sub_resource type="Resource" id="Resource_8n6ao"]
+script = ExtResource("5_l1ewb")
+essences = Array[ExtResource("5_dwuxu")]([SubResource("Resource_vyiku")])
+
+[sub_resource type="Resource" id="Resource_xrp7h"]
+script = ExtResource("5_dwuxu")
+type = 13
+amount = 2
+
+[sub_resource type="Resource" id="Resource_p84mq"]
+script = ExtResource("5_l1ewb")
+essences = Array[ExtResource("5_dwuxu")]([SubResource("Resource_xrp7h")])
+
+[sub_resource type="Resource" id="Resource_uxsmv"]
+script = ExtResource("16_d74fs")
+max_uses = 16
+uses = 16
+usage_delay = 0.1
+damage = 1
+speed = 500.0
+name = "ITEM NAME"
+description = "ITEM DESCRIPTION"
+gold_value = 0
+
+[sub_resource type="Resource" id="Resource_essqb"]
+script = ExtResource("17_so7xx")
+name = "TEST POTION OF HIGH SPEED DOOM"
+description = "ADDS SPEEEEEED TO YOUR POTION"
+essence_requirement = SubResource("Resource_p84mq"

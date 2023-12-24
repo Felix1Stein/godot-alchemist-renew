@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PotionCardData" load_steps=8 format=3 uid="uid://nkrutr0ubyl6"]
+
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="1_hbnef"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="2_2yxnh"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="3_5mp4c"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionCardData.gd" id="4_2gvn8"]
+
+[sub_resource type="Resource" id="Resource_v5wqw"]
+script = ExtResource("1_hbnef")
+type = 1
+amount = 3
+
+[sub_resource type="Resource" id="Resource_unjap"]
+script = ExtResource("2_2yxnh")
+essences = Array[ExtResource("1_hbnef")]([SubResource("Resource_v5wqw")])
+
+[sub_resource type="Resource" id="Resource_62pwi"]
+script = ExtResource("3_5mp4c")
+max_uses = 10
+uses = 10
+usage_delay = 1.0
+damage = 1
+speed = 100.0
+name = "ITEM NAME"
+description = "ITEM DESCRIPTION"
+gold_value = 0
+
+[resource]
+script = ExtResource("4_2gvn8")
+name = "PAINFUL TEST POTION OF ETERNAL DOOM"
+description = "THIS POTION LETS THE USER FEEL A PAINFUL GLIMPS OF ETERNAL DOOM"
+essence_requirement = SubResource("Resource_unjap")
+potion_effect = SubResource("Resource_62pwi")

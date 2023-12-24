@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://brgo0jichi0f3"]
+
+[ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
+[ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
+[ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="2_sqe1m"]
+[ext_resource type="Resource" uid="uid://bxv5kv8ly5la5" path="res://Resources/MushroomResource.tres" id="3_5rcix"]
+[ext_resource type="Script" path="res://Scripts/Components/Interactible.gd" id="3_txml3"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceModifier_InventoryExtractor.gd" id="4_yq3i4"]
+[ext_resource type="Script" path="res://Scripts/Components/EssenceContainer.gd" id="5_8sm3a"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="5_l1ewb"]
+[ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
+[ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="7_amiyc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
+size = Vector2(6, 6)
+
+[sub_resource type="Resource" id="Resource_ialku"]
+script = ExtResource("5_l1ewb")
+essences = Array[Resource("res://Scripts/DataContainers/EssenceData.gd")]([])
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("1_uw7ri")]
+position = Vector2(107, 94)
+
+[node name="Inventory" parent="Entities" instance=ExtResource("2_sqe1m")]
+position = Vector2(261, 89)
+
+[node name="Interactible" type="Area2D" parent="Entities"]
+position = Vector2(208, 128)
+script = ExtResource("3_txml3")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Entities/Interactible"]
+shape = SubResource("RectangleShape2D_bn16g")
+debug_color = Color(0.309804, 0.627451, 0, 0.419608)
+
+[node name="InventoryExtractor" type="Node" parent="Entities" node_paths=PackedStringArray("source_inventory", "target_essence_container")]
+script = ExtResource("4_yq3i4")
+source_inventory = NodePath("../Inventory")
+target_essence_container = NodePath("TargetEssenceContainer")
+
+[node name="TargetEssenceContainer" type="Node2D" parent="Entities/InventoryExtractor" node_paths=PackedStringArray("essence_display")]
+position = Vector2(261, 119)
+script = ExtResource("5_8sm3a")
+essence_display = NodePath("Label")
+essence_bundle = SubResource("Resource_ialku")
+
+[node name="Label" type="Label" parent="Entities/InventoryExtractor/TargetEssenceContainer"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 1.0
+offset_right = 32.0
+offset_bottom = 24.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("7_amiyc")
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Ingredient" parent="Items" instance=ExtResource("1_nll84")]
+position = Vector2(177, 95)
+item_data = ExtResource("3_5rcix")
+
+[node name="Ingredient2" parent="Items" instance=ExtResource("1_nll84")]
+position = Vector2(142, 131)
+item_data = ExtResource("3_5rcix")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerUI" type="Label" parent="UI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 333.0
+offset_right = 104.0
+offset_bottom = 356.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_iq147")
+text = "HP: X/X"
+vertical_alignment = 2
+
+[connection signal="area_entered" from="Entities/Interactible" to="Entities/Interactible" method="_on_area_entered"]
+[connection signal="area_exited" from="Entities/Interactible" to="Entities/Interactible" method="_on_area_exited"]
+[connection signal="player_interacted" from="Entities/Interactible" to="Entities/InventoryExtractor" method="_on_player_interacted"]
