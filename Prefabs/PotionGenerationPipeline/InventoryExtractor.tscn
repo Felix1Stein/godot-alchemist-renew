@@ -15,10 +15,12 @@ essences = Array[Resource("res://Scripts/DataContainers/EssenceData.gd")]([])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
 size = Vector2(6, 6)
 
-[node name="InventoryExtractor" type="Node2D" node_paths=PackedStringArray("source_inventory", "target_essence_container")]
+[node name="InventoryExtractor" type="Node2D" node_paths=PackedStringArray("source_inventory", "target_essence_container", "source_anchor", "target_anchor")]
 script = ExtResource("1_bhlgq")
 source_inventory = NodePath("ExtractorInventory")
 target_essence_container = NodePath("ExtractorTargetEssenceContainer")
+source_anchor = NodePath("SourceAnchor")
+target_anchor = NodePath("TargetAnchor")
 
 [node name="ExtractorTargetEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
 script = ExtResource("2_awul5")
@@ -58,6 +60,11 @@ texture = ExtResource("6_436dp")
 [node name="ExtractorInventory" parent="." instance=ExtResource("7_5keyo")]
 position = Vector2(0, -39)
 hide_item_selector = true
+
+[node name="SourceAnchor" type="Node2D" parent="."]
+
+[node name="TargetAnchor" type="Node2D" parent="."]
+position = Vector2(36, -32)
 
 [connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
 [connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]

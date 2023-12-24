@@ -29,12 +29,13 @@ essences = Array[ExtResource("3_ovrhc")]([])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
 size = Vector2(6, 6)
 
-[node name="RandomSelector" type="Node2D" node_paths=PackedStringArray("infinite_source_essence_container", "target_essence_container")]
-position = Vector2(72, 0)
+[node name="RandomSelector" type="Node2D" node_paths=PackedStringArray("infinite_source_essence_container", "target_essence_container", "source_anchor", "target_anchor")]
 script = ExtResource("1_tx2fp")
 infinite_source_essence_container = NodePath("InfiniteSourceEssenceContainer")
 random_source_chance = 0.5
 target_essence_container = NodePath("SelectorTargetEssenceContainer")
+source_anchor = NodePath("SourceAnchor")
+target_anchor = NodePath("TargetAnchor")
 
 [node name="InfiniteSourceEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
 script = ExtResource("2_dvpjf")
@@ -90,6 +91,12 @@ debug_color = Color(0.309804, 0.627451, 0, 0.419608)
 [node name="Sprite" type="Sprite2D" parent="Interactible"]
 texture_filter = 1
 texture = ExtResource("7_1ob3w")
+
+[node name="SourceAnchor" type="Node2D" parent="."]
+position = Vector2(-36, -32)
+
+[node name="TargetAnchor" type="Node2D" parent="."]
+position = Vector2(36, -32)
 
 [connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
 [connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]

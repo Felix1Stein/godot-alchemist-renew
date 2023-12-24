@@ -29,11 +29,12 @@ essences = Array[ExtResource("2_p51ik")]([])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
 size = Vector2(6, 6)
 
-[node name="Subtractor" type="Node2D" node_paths=PackedStringArray("subtractor_source_essence_container")]
-position = Vector2(144, 0)
+[node name="Subtractor" type="Node2D" node_paths=PackedStringArray("subtractor_source_essence_container", "source_anchor", "target_anchor")]
 script = ExtResource("1_h2rnj")
 subtractor_source_essence_container = NodePath("SubtractorSourceEssenceContainer")
 refill_essence_bundle = SubResource("Resource_7nqso")
+source_anchor = NodePath("SourceAnchor")
+target_anchor = NodePath("TargetAnchor")
 
 [node name="SubtractorSourceEssenceContainer" type="Node2D" parent="." node_paths=PackedStringArray("essence_display")]
 script = ExtResource("4_83t60")
@@ -65,6 +66,12 @@ debug_color = Color(0.309804, 0.627451, 0, 0.419608)
 [node name="Sprite" type="Sprite2D" parent="Interactible"]
 texture_filter = 1
 texture = ExtResource("7_85tpk")
+
+[node name="SourceAnchor" type="Node2D" parent="."]
+position = Vector2(-16, -48)
+
+[node name="TargetAnchor" type="Node2D" parent="."]
+position = Vector2(16, -48)
 
 [connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
 [connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]

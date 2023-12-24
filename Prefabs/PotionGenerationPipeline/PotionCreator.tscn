@@ -42,12 +42,13 @@ potion_effect = SubResource("Resource_uxsmv")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn16g"]
 size = Vector2(6, 6)
 
-[node name="PotionCreator" type="Node2D" node_paths=PackedStringArray("drop_position", "potion_card_manager")]
-position = Vector2(216, 0)
+[node name="PotionCreator" type="Node2D" node_paths=PackedStringArray("drop_position", "potion_card_manager", "source_anchor", "target_anchor")]
 script = ExtResource("1_6utg2")
 potion_prefab = ExtResource("2_no4yq")
 drop_position = NodePath("DropPosition")
 potion_card_manager = NodePath("PotionCardManager")
+source_anchor = NodePath("SourceAnchor")
+target_anchor = NodePath("TargetAnchor")
 
 [node name="PotionCardManager" type="Node2D" parent="."]
 position = Vector2(40, 0)
@@ -68,6 +69,12 @@ texture = ExtResource("11_nui3f")
 
 [node name="DropPosition" type="Node2D" parent="."]
 position = Vector2(0, 48)
+
+[node name="SourceAnchor" type="Node2D" parent="."]
+position = Vector2(-36, -32)
+
+[node name="TargetAnchor" type="Node2D" parent="."]
+position = Vector2(36, -32)
 
 [connection signal="area_entered" from="Interactible" to="Interactible" method="_on_area_entered"]
 [connection signal="area_exited" from="Interactible" to="Interactible" method="_on_area_exited"]

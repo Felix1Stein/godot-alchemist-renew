@@ -4,6 +4,10 @@ class_name EssenceModifier
 @export var source_essence_container : EssenceContainer
 @export var target_essence_container : EssenceContainer
 
+# Both nodes are used to position the EssenceModifier so that source and target always align
+@export var source_anchor : Node2D
+@export var target_anchor : Node2D
+
 signal essence_modifier_modified()
 
 

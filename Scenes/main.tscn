@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://brgo0jichi0f3"]
+[gd_scene load_steps=11 format=3 uid="uid://brgo0jichi0f3"]
 
 [ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
 [ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bc0aeeb5cj5ei" path="res://Prefabs/PotionGenerationPipeline/Subtractor.tscn" id="5_40o3a"]
 [ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
 [ext_resource type="PackedScene" uid="uid://dru6iisxs5fu1" path="res://Prefabs/PotionGenerationPipeline/PotionCreator.tscn" id="6_k8wag"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqhpy"]
+radius = 12.0
 
 [node name="MainScene" type="Node2D"]
 
@@ -21,12 +24,15 @@ position = Vector2(104, 176)
 position = Vector2(96, 104)
 script = ExtResource("2_lyqdw")
 essence_modifier_prefabs = Array[PackedScene]([ExtResource("3_e2nb4"), ExtResource("4_dg4x4"), ExtResource("5_40o3a"), ExtResource("6_k8wag")])
-offset = Vector2(75, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/PotionGenerationPipeline"]
+shape = SubResource("CircleShape2D_rqhpy")
+debug_color = Color(0, 0.65098, 0.168627, 0.419608)
 
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Ingredient" parent="Items" instance=ExtResource("1_nll84")]
-position = Vector2(178, 141)
+position = Vector2(76, 190)
 item_data = ExtResource("3_5rcix")
 
 [node name="Ingredient2" parent="Items" instance=ExtResource("1_nll84")]
