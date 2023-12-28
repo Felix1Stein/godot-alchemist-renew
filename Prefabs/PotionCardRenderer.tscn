@@ -4,7 +4,12 @@
 [ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="2_k2frp"]
 [ext_resource type="FontFile" uid="uid://bfq8iy7ddg6kp" path="res://Assets/Fonts/EssenceFontOrdered.png" id="3_2imx2"]
 
-[node name="PotionCardRenderer" type="Node2D" node_paths=PackedStringArray("name_display", "essence_requirement_display", "effect_display")]
+[node name="PotionCardRenderer" type="Control" node_paths=PackedStringArray("name_display", "essence_requirement_display", "effect_display")]
+custom_minimum_size = Vector2(96, 80)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 96.0
+offset_bottom = 72.0
 script = ExtResource("1_wkrlr")
 name_display = NodePath("Name")
 essence_requirement_display = NodePath("EssenceRequirement")
@@ -12,6 +17,7 @@ effect_display = NodePath("Effect")
 
 [node name="Name" type="Label" parent="."]
 texture_filter = 1
+layout_mode = 2
 offset_right = 96.0
 offset_bottom = 16.0
 theme_override_fonts/font = ExtResource("2_k2frp")
@@ -20,6 +26,7 @@ autowrap_mode = 2
 
 [node name="EssenceRequirementTitle" type="Label" parent="."]
 texture_filter = 1
+layout_mode = 2
 offset_top = 22.0
 offset_right = 80.0
 offset_bottom = 30.0
@@ -29,6 +36,7 @@ text = "REQUIRES:"
 
 [node name="EssenceRequirement" type="Label" parent="."]
 texture_filter = 1
+layout_mode = 2
 offset_left = 32.0
 offset_top = 20.0
 offset_right = 96.0
@@ -39,6 +47,7 @@ autowrap_mode = 1
 
 [node name="Effect" type="Label" parent="."]
 texture_filter = 1
+layout_mode = 2
 offset_top = 35.0
 offset_right = 96.0
 offset_bottom = 70.0

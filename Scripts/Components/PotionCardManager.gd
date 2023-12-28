@@ -2,13 +2,17 @@ extends Node2D
 class_name PotionCardManager
 
 @export var potion_cards : Array[PotionCardData]
-
 @export var potion_card_prefab : PackedScene
+@export var potion_card_container : Container
+
+var cards_visible : bool = false
 
 
 # Enter tree
 func _ready() -> void:
-	render_potion_cards()
+	create_potion_card_ui()
+	cards_visible = true
+	toggle_card_visibility()
 
 
 # Generates potion data from potion cards
@@ -45,14 +49,25 @@ func cumulate_potion_cards(essence_budget : EssenceBundleData) -> PotionData:
 
 
 # Instantiates and renders all potion cards
-func render_potion_cards() -> void:
-	var offset : Vector2 = Vector2.ZERO
+func create_potion_card_ui() -> void:
+	#var offset : Vector2 = Vector2.ZERO
 	
 	for potion_card_data in potion_cards:
 		var renderer : PotionCardRenderer = potion_card_prefab.instantiate() as PotionCardRenderer
-		renderer.position = offset
+		#renderer.position = offset
 		renderer.potion_card_data = potion_card_data
-		self.add_child(renderer)
+		potion_card_container.add_child(renderer)
 		renderer.refresh_ui()
 		
-		offset += Vector2(110, 0)
+		#offset += Vector2(110, 0)
+
+
+# Switches the visibility state of the potion card display
+func toggle_card_visibility() -> void:
+	cards_visible = ! cards_visible
+	potion_card_container.visible = cards_visible
+
+
+# Player interacted
+func _on_player_interacted(player : PlayerManager) -> void:
+	toggle_card_visibility()

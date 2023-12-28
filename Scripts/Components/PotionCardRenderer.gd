@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name PotionCardRenderer
 
 @export var name_display : Label
