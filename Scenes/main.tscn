@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://brgo0jichi0f3"]
+[gd_scene load_steps=16 format=3 uid="uid://brgo0jichi0f3"]
 
 [ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
 [ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
@@ -9,15 +9,24 @@
 [ext_resource type="PackedScene" uid="uid://bc0aeeb5cj5ei" path="res://Prefabs/PotionGenerationPipeline/Subtractor.tscn" id="5_40o3a"]
 [ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
 [ext_resource type="PackedScene" uid="uid://dru6iisxs5fu1" path="res://Prefabs/PotionGenerationPipeline/PotionCreator.tscn" id="6_k8wag"]
+[ext_resource type="Script" path="res://Scripts/Components/EnemyBehavior.gd" id="7_aslfw"]
+[ext_resource type="Texture2D" uid="uid://bmeaqe0n2f7ks" path="res://Assets/Characters/Devil_Violet.png" id="7_ebt43"]
+[ext_resource type="Script" path="res://Scripts/Components/TargetChecker.gd" id="8_hrs4x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqhpy"]
 radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bstd"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n7fop"]
+radius = 7.0
 
 [node name="MainScene" type="Node2D"]
 
 [node name="Entities" type="Node2D" parent="."]
 
-[node name="Player" parent="Entities" instance=ExtResource("1_uw7ri")]
+[node name="Player" parent="Entities" groups=["Player"] instance=ExtResource("1_uw7ri")]
 position = Vector2(104, 176)
 
 [node name="PotionGenerationPipeline" type="Node2D" parent="Entities"]
@@ -28,6 +37,30 @@ essence_modifier_prefabs = Array[PackedScene]([ExtResource("3_e2nb4"), ExtResour
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/PotionGenerationPipeline"]
 shape = SubResource("CircleShape2D_rqhpy")
 debug_color = Color(0, 0.65098, 0.168627, 0.419608)
+
+[node name="TinyDevil" type="Node2D" parent="Entities" groups=["Enemy"]]
+position = Vector2(248, 216)
+
+[node name="EnemyBehavior" type="Node" parent="Entities/TinyDevil"]
+script = ExtResource("7_aslfw")
+engage_min_distance = 75.0
+retreat_max_distance = 50.0
+
+[node name="TargetChecker" type="Area2D" parent="Entities/TinyDevil" node_paths=PackedStringArray("influence_box")]
+script = ExtResource("8_hrs4x")
+influence_box = NodePath("InfluenceBox")
+
+[node name="InfluenceBox" type="CollisionShape2D" parent="Entities/TinyDevil/TargetChecker"]
+shape = SubResource("CircleShape2D_1bstd")
+debug_color = Color(0.933333, 0, 0.639216, 0.105882)
+
+[node name="Sprite" type="Sprite2D" parent="Entities/TinyDevil"]
+texture_filter = 1
+texture = ExtResource("7_ebt43")
+offset = Vector2(0, -0.5)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="Entities/TinyDevil"]
+shape = SubResource("CircleShape2D_n7fop")
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -65,3 +98,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_iq147")
 text = "HP: X/X"
 vertical_alignment = 2
+
+[connection signal="area_entered" from="Entities/TinyDevil/TargetChecker" to="Entities/TinyDevil/TargetChecker" method="_on_area_entered"]
+[connection signal="area_exited" from="Entities/TinyDevil/TargetChecker" to="Entities/TinyDevil/TargetChecker" method="_on_area_exited"]
+[connection signal="target_changed" from="Entities/TinyDevil/TargetChecker" to="Entities/TinyDevil/EnemyBehavior" method="_on_target_checker_target_changed"]

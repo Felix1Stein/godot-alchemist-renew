@@ -117,6 +117,7 @@ potion_card_prefab = ExtResource("9_oaqok")
 potion_card_container = NodePath("PotionCardContainer")
 
 [node name="PotionCardContainer" type="HFlowContainer" parent="PotionCardManager"]
+texture_filter = 1
 custom_minimum_size = Vector2(96, 96)
 offset_left = 75.0
 offset_top = -75.0
