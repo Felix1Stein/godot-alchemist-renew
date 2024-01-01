@@ -22,23 +22,23 @@ func reset_delay(max_delay : float):
 
 
 # Executes attack stored in potion_data
-func attack(potion_data : PotionData, velocity : Vector2) -> void:
+func attack(potion_data : PotionData, velocity : Vector2, projectile_direction : Vector2) -> void:
 	if can_attack() == false || potion_data.can_use() == false:
 		return
 	
 	potion_data.decrease_uses()
 	reset_delay(potion_data.usage_delay)
 	
-	create_projectile(potion_data, velocity)
+	create_projectile(potion_data, velocity, projectile_direction)
 
 
-# Spanwns projectile with behavior configured in potion_data with the given velocity 
-func create_projectile(potion_data : PotionData, velocity : Vector2) -> void:
+# Spanwns projectile with behavior configured in potion_data with the given velocity and projectile direction
+func create_projectile(potion_data : PotionData, velocity : Vector2, projectile_direction : Vector2) -> void:
 	var projectile : Projectile = projectile_prefab.instantiate() as Projectile
 	projectile.position = get_parent().global_position
 	
 	# ignores player velocity
-	projectile.velocity = (get_parent().get_global_mouse_position() - get_parent().global_position).normalized() * potion_data.speed
+	projectile.velocity = projectile_direction.normalized() * potion_data.speed
 	
 	get_tree().root.add_child(projectile)
 	

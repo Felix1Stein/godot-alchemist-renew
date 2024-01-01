@@ -105,9 +105,11 @@ func handle_inventory_closed_interaction(input_movement_map : Dictionary, player
 	if Input.is_action_pressed(input_movement_map[InputBindingData.INPUTS.ATTACK]):
 		if equipment_inventory.items.size() > 0:
 			var potion_data : PotionData = equipment_inventory.items[0] as PotionData
-			attack_manager_primary.attack(potion_data, player_velocity)
+			var projectile_direction : Vector2 = (get_parent().get_global_mouse_position() - get_parent().global_position).normalized()
+			attack_manager_primary.attack(potion_data, player_velocity, projectile_direction)
 		
 	if Input.is_action_pressed(input_movement_map[InputBindingData.INPUTS.ATTACK_ALTERNATE]):
 		if equipment_inventory.items.size() > 1:
 			var potion_data : PotionData = equipment_inventory.items[1] as PotionData
-			attack_manager_secondary.attack(potion_data, player_velocity)
+			var projectile_direction : Vector2 = (get_parent().get_global_mouse_position() - get_parent().global_position).normalized()
+			attack_manager_secondary.attack(potion_data, player_velocity, projectile_direction)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://brgo0jichi0f3"]
+[gd_scene load_steps=20 format=3 uid="uid://brgo0jichi0f3"]
 
 [ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
 [ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
@@ -11,10 +11,24 @@
 [ext_resource type="PackedScene" uid="uid://dru6iisxs5fu1" path="res://Prefabs/PotionGenerationPipeline/PotionCreator.tscn" id="6_k8wag"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyBehavior.gd" id="7_aslfw"]
 [ext_resource type="Texture2D" uid="uid://bmeaqe0n2f7ks" path="res://Assets/Characters/Devil_Violet.png" id="7_ebt43"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="8_33twk"]
 [ext_resource type="Script" path="res://Scripts/Components/TargetChecker.gd" id="8_hrs4x"]
+[ext_resource type="Script" path="res://Scripts/Components/AttackManager.gd" id="8_wrfba"]
+[ext_resource type="PackedScene" uid="uid://df3h7qev1b10s" path="res://Prefabs/Projectile.tscn" id="9_yf2lg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqhpy"]
 radius = 12.0
+
+[sub_resource type="Resource" id="Resource_jimux"]
+script = ExtResource("8_33twk")
+max_uses = 10
+uses = 10
+usage_delay = 1.0
+damage = 1
+speed = 100.0
+name = "ITEM NAME"
+description = "ITEM DESCRIPTION"
+gold_value = 0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bstd"]
 radius = 1.0
@@ -41,10 +55,14 @@ debug_color = Color(0, 0.65098, 0.168627, 0.419608)
 [node name="TinyDevil" type="Node2D" parent="Entities" groups=["Enemy"]]
 position = Vector2(248, 216)
 
-[node name="EnemyBehavior" type="Node" parent="Entities/TinyDevil"]
+[node name="EnemyBehavior" type="Node" parent="Entities/TinyDevil" node_paths=PackedStringArray("attack_manager")]
 script = ExtResource("7_aslfw")
-engage_min_distance = 75.0
-retreat_max_distance = 50.0
+attack_manager = NodePath("../AttackManager")
+potion = SubResource("Resource_jimux")
+
+[node name="AttackManager" type="Node" parent="Entities/TinyDevil"]
+script = ExtResource("8_wrfba")
+projectile_prefab = ExtResource("9_yf2lg")
 
 [node name="TargetChecker" type="Area2D" parent="Entities/TinyDevil" node_paths=PackedStringArray("influence_box")]
 script = ExtResource("8_hrs4x")

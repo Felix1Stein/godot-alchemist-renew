@@ -35,4 +35,4 @@ essence_bundle = SubResource("Resource_pwt1k")
 name = "MUSHROOM"
 description = "MAGIC"
 texture = ExtResource("4_of2fi")
-gold_value = null
+gold_value = 0

@@ -37,7 +37,12 @@ func get_closest_target() -> Node2D:
 
 # Adds object to list of potential targets
 func add_potential_target(node : Area2D) -> void:
-	var parent : Node2D = node.get_parent()
+	var parent : Node2D
+	
+	if node.get_parent() is Node2D:
+		parent = node.get_parent()
+	else:
+		return
 	
 	if parent.is_in_group(target_group_name) == false:
 		return
@@ -48,7 +53,12 @@ func add_potential_target(node : Area2D) -> void:
 
 # Removes object from list of potential targets
 func remove_potential_target(node : Area2D) -> void:
-	var parent : Node2D = node.get_parent()
+	var parent : Node2D
+	
+	if node.get_parent() is Node2D:
+		parent = node.get_parent()
+	else:
+		return
 	
 	if parent.is_in_group(target_group_name) == false:
 		return
