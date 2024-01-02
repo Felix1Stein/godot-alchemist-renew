@@ -15,9 +15,9 @@ func _init(max_health_points : int = 1, health_points : int = 1):
 	self.health_points = health_points
 
 
-# Modifies health data according ot the attack_data ruleset
-func attack(attack_data : AttackData) -> void:
-	change_health(- attack_data.contact_damage)
+# Modifies health data according ot the damage_data ruleset
+func attack(damage_data : DamageData) -> void:
+	change_health(- damage_data.contact_damage)
 
 
 # Adds the delta to the health_points and handles potential death 

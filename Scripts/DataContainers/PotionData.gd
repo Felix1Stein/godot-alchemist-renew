@@ -5,8 +5,7 @@ class_name PotionData
 @export var uses : int = 10
 @export var usage_delay : float = 1
 
-@export var damage : int = 1
-@export var speed : float = 100
+@export var projectile_data : ProjectileData
 
 
 # Init
@@ -27,8 +26,7 @@ func add(other_potion_data : PotionData) -> void:
 	
 	usage_delay = (usage_delay + other_potion_data.usage_delay) / 2
 	
-	damage += other_potion_data.damage
-	speed = (speed + other_potion_data.speed) / 2
+	projectile_data.add(other_potion_data.projectile_data)
 
 
 # Checks if potion can be used and returns true otherwise false

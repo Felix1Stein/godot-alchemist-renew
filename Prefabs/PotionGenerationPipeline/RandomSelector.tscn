@@ -82,6 +82,8 @@ vertical_alignment = 2
 autowrap_mode = 1
 
 [node name="Interactible" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("6_xifto")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="Interactible"]

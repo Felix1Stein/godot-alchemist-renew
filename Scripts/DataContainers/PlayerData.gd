@@ -6,6 +6,7 @@ class_name PlayerData
 @export var texture : Texture
 
 @export var health : HealthData
+@export var damage : DamageData
 @export var inventory : InventoryData
 @export var equipment_inventory : InventoryData
 @export var character_movement : CharacterMovementData

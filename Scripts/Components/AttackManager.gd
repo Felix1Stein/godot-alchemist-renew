@@ -38,7 +38,7 @@ func create_projectile(potion_data : PotionData, velocity : Vector2, projectile_
 	projectile.position = get_parent().global_position
 	
 	# ignores player velocity
-	projectile.velocity = projectile_direction.normalized() * potion_data.speed
+	projectile.direction = projectile_direction.normalized()
 	
 	get_tree().root.add_child(projectile)
 	

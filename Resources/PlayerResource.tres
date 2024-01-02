@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=13 format=3 uid="uid://cx2iej1ncu50t"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=15 format=3 uid="uid://cx2iej1ncu50t"]
 
 [ext_resource type="Script" path="res://Scripts/DataContainers/CharacterMovementData.gd" id="1_fswep"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/DamageData.gd" id="2_6v4cp"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/HealthData.gd" id="2_wya41"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/InputBindingData.gd" id="3_itskq"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/InventoryData.gd" id="3_t2xli"]
@@ -18,6 +19,10 @@ speed = 140.0
 dash_speed_profile = SubResource("Curve_sml6q")
 dash_max_duration = 0.6
 dash_max_regeneration = 1.2
+
+[sub_resource type="Resource" id="Resource_rihn4"]
+script = ExtResource("2_6v4cp")
+contact_damage = 1
 
 [sub_resource type="Resource" id="Resource_lw3wd"]
 script = ExtResource("3_t2xli")
@@ -54,6 +59,7 @@ script = ExtResource("4_epkx2")
 player_name = "PLAYER 1"
 texture = ExtResource("5_w4rja")
 health = SubResource("Resource_qgn7e")
+damage = SubResource("Resource_rihn4")
 inventory = SubResource("Resource_vr7hp")
 equipment_inventory = SubResource("Resource_lw3wd")
 character_movement = SubResource("Resource_ow6ag")

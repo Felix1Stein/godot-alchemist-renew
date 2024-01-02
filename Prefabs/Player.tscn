@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnpwuarnje8f4"]
+[gd_scene load_steps=15 format=3 uid="uid://dnpwuarnje8f4"]
 
 [ext_resource type="Script" path="res://Scripts/Components/PlayerManager.gd" id="1_0hqv5"]
 [ext_resource type="Resource" uid="uid://cx2iej1ncu50t" path="res://Resources/PlayerResource.tres" id="2_wscap"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://df3h7qev1b10s" path="res://Prefabs/Projectile.tscn" id="5_m6eus"]
 [ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="5_q7ju7"]
 [ext_resource type="PackedScene" uid="uid://dwrxxsspbsq1f" path="res://Prefabs/Inventory_Equipment.tscn" id="6_2u3sn"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthManager.gd" id="8_lpnq2"]
+[ext_resource type="Script" path="res://Scripts/Components/DamageManager.gd" id="9_ulep0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vmpq1"]
 size = Vector2(16, 16)
@@ -19,12 +21,14 @@ size = Vector2(18, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7v2hc"]
 size = Vector2(18, 19)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_movement", "player_inventory_manager", "sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_movement", "player_inventory_manager", "sprite", "health_manager", "damage_manager")]
 script = ExtResource("1_0hqv5")
 player_data = ExtResource("2_wscap")
 player_movement = NodePath("PlayerMovement")
 player_inventory_manager = NodePath("PlayerInventoryManager")
 sprite = NodePath("Sprite")
+health_manager = NodePath("HealthManager")
+damage_manager = NodePath("DamageManager")
 
 [node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player_manager")]
 script = ExtResource("3_tkdwy")
@@ -54,16 +58,22 @@ texture = ExtResource("4_kcavx")
 shape = SubResource("RectangleShape2D_vmpq1")
 debug_color = Color(0, 0, 0, 0.454902)
 
-[node name="HealthComponent" type="Area2D" parent="."]
+[node name="HealthManager" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("8_lpnq2")
 
-[node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
+[node name="Hurtbox" type="CollisionShape2D" parent="HealthManager"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_h1nrs")
 debug_color = Color(0.921569, 0, 0.254902, 0.227451)
 
-[node name="AttackComponent" type="Area2D" parent="."]
+[node name="DamageManager" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("9_ulep0")
 
-[node name="Attackbox" type="CollisionShape2D" parent="AttackComponent"]
+[node name="Attackbox" type="CollisionShape2D" parent="DamageManager"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_7v2hc")
 debug_color = Color(0.87451, 0.34902, 0.294118, 0.270588)
@@ -75,3 +85,5 @@ collection_item_types = 1
 [node name="Equipment_Inventory" parent="." instance=ExtResource("6_2u3sn")]
 position = Vector2(0, 1)
 collection_item_types = 2
+
+[connection signal="area_entered" from="DamageManager" to="DamageManager" method="_on_area_entered"]

@@ -1,13 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://df3h7qev1b10s"]
+[gd_scene load_steps=10 format=3 uid="uid://df3h7qev1b10s"]
 
 [ext_resource type="Script" path="res://Scripts/Components/Projectile.gd" id="1_rs14p"]
 [ext_resource type="Texture2D" uid="uid://b0djf7ak4wsq2" path="res://Assets/Characters/Skull.png" id="2_1s5g2"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/ProjectileData.gd" id="2_je5i6"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/DamageData.gd" id="2_oup66"]
+[ext_resource type="Script" path="res://Scripts/Components/DamageManager.gd" id="3_j30aw"]
+
+[sub_resource type="Resource" id="Resource_j5oat"]
+script = ExtResource("2_oup66")
+contact_damage = 1
+
+[sub_resource type="Resource" id="Resource_cgjky"]
+script = ExtResource("2_je5i6")
+damage = SubResource("Resource_j5oat")
+speed = 100.0
+destroy_on_contact = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ta8mo"]
-radius = 6.08276
+radius = 5.38516
 
-[node name="Projectile" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_uhvjy"]
+radius = 6.0
+
+[node name="Projectile" type="Area2D" node_paths=PackedStringArray("damage_manager")]
 script = ExtResource("1_rs14p")
+projectile_data = SubResource("Resource_cgjky")
+damage_manager = NodePath("DamageManager")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -16,4 +34,15 @@ texture = ExtResource("2_1s5g2")
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ta8mo")
 
+[node name="DamageManager" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("3_j30aw")
+
+[node name="Attackbox" type="CollisionShape2D" parent="DamageManager"]
+shape = SubResource("CircleShape2D_uhvjy")
+debug_color = Color(0.87451, 0.34902, 0.294118, 0.270588)
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="DamageManager" to="DamageManager" method="_on_area_entered"]

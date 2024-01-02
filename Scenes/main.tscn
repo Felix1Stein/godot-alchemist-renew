@@ -24,8 +24,6 @@ script = ExtResource("8_33twk")
 max_uses = 10
 uses = 10
 usage_delay = 1.0
-damage = 1
-speed = 100.0
 name = "ITEM NAME"
 description = "ITEM DESCRIPTION"
 gold_value = 0
@@ -65,6 +63,8 @@ script = ExtResource("8_wrfba")
 projectile_prefab = ExtResource("9_yf2lg")
 
 [node name="TargetChecker" type="Area2D" parent="Entities/TinyDevil" node_paths=PackedStringArray("influence_box")]
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("8_hrs4x")
 influence_box = NodePath("InfluenceBox")
 

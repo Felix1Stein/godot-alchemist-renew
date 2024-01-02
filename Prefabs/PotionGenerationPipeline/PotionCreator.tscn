@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dru6iisxs5fu1"]
+[gd_scene load_steps=35 format=3 uid="uid://dru6iisxs5fu1"]
 
 [ext_resource type="Script" path="res://Scripts/Components/EssenceBundleModifier/EssenceModifier_PotionCreator.gd" id="1_6utg2"]
 [ext_resource type="PackedScene" uid="uid://cgvc4m4s8kl3e" path="res://Prefabs/Potion.tscn" id="2_no4yq"]
@@ -6,6 +6,8 @@
 [ext_resource type="Resource" uid="uid://nkrutr0ubyl6" path="res://Resources/TestPotionCard.tres" id="4_v2kat"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/EssenceData.gd" id="5_xsttq"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/EssenceBundleData.gd" id="6_03e4k"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/DamageData.gd" id="7_e4rju"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/ProjectileData.gd" id="7_hi13n"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="7_k5vso"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/PotionCardData.gd" id="8_6ywq4"]
 [ext_resource type="PackedScene" uid="uid://c6dwsk64s4c0c" path="res://Prefabs/PotionCardRenderer.tscn" id="9_oaqok"]
@@ -22,13 +24,22 @@ amount = 2
 script = ExtResource("6_03e4k")
 essences = Array[ExtResource("5_xsttq")]([SubResource("Resource_xrp7h")])
 
+[sub_resource type="Resource" id="Resource_fd74b"]
+script = ExtResource("7_e4rju")
+contact_damage = 1
+
+[sub_resource type="Resource" id="Resource_3027h"]
+script = ExtResource("7_hi13n")
+damage = SubResource("Resource_fd74b")
+speed = 100.0
+destroy_on_contact = true
+
 [sub_resource type="Resource" id="Resource_uxsmv"]
 script = ExtResource("7_k5vso")
 max_uses = 16
 uses = 16
 usage_delay = 0.1
-damage = 1
-speed = 500.0
+projectile_data = SubResource("Resource_3027h")
 name = "ITEM NAME"
 description = "ITEM DESCRIPTION"
 gold_value = 0
@@ -49,13 +60,22 @@ amount = 1
 script = ExtResource("6_03e4k")
 essences = Array[ExtResource("5_xsttq")]([SubResource("Resource_orlcv")])
 
+[sub_resource type="Resource" id="Resource_x7ndx"]
+script = ExtResource("7_e4rju")
+contact_damage = 1
+
+[sub_resource type="Resource" id="Resource_no6gl"]
+script = ExtResource("7_hi13n")
+damage = SubResource("Resource_x7ndx")
+speed = 100.0
+destroy_on_contact = true
+
 [sub_resource type="Resource" id="Resource_hovbd"]
 script = ExtResource("7_k5vso")
 max_uses = 10
 uses = 10
 usage_delay = 1.0
-damage = 1
-speed = 100.0
+projectile_data = SubResource("Resource_no6gl")
 name = "ITEM NAME"
 description = "ITEM DESCRIPTION"
 gold_value = 0
@@ -81,13 +101,22 @@ amount = 2
 script = ExtResource("6_03e4k")
 essences = Array[ExtResource("5_xsttq")]([SubResource("Resource_wf5it"), SubResource("Resource_u28wn")])
 
+[sub_resource type="Resource" id="Resource_gyhkq"]
+script = ExtResource("7_e4rju")
+contact_damage = 1
+
+[sub_resource type="Resource" id="Resource_dpwu8"]
+script = ExtResource("7_hi13n")
+damage = SubResource("Resource_gyhkq")
+speed = 100.0
+destroy_on_contact = true
+
 [sub_resource type="Resource" id="Resource_734ma"]
 script = ExtResource("7_k5vso")
 max_uses = 10
 uses = 10
 usage_delay = 1.0
-damage = 1
-speed = 100.0
+projectile_data = SubResource("Resource_dpwu8")
 name = "ITEM NAME"
 description = "ITEM DESCRIPTION"
 gold_value = 0
@@ -132,6 +161,8 @@ text = "POTIONS
  "
 
 [node name="InteractiblePotionCreator" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("10_1uu8w")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="InteractiblePotionCreator"]
@@ -144,6 +175,8 @@ texture = ExtResource("11_nui3f")
 
 [node name="InteractibleShowCards" type="Area2D" parent="."]
 position = Vector2(40, 0)
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("10_1uu8w")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="InteractibleShowCards"]

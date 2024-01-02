@@ -8,6 +8,9 @@ class_name PlayerManager
 @export var player_inventory_manager : PlayerInventoryManager
 @export var sprite : Sprite2D
 
+@export var health_manager : HealthManager
+@export var damage_manager : DamageManager
+
 var tooltips_visible : bool = false
 var equipment_inventory_selected : bool = false
 
@@ -22,11 +25,18 @@ var state = STATES.MOVEMENT
 # Ready
 func _ready():
 	initialize_sprite()
+	initialize_child_objects()
 
 
 # Sets player sprites
 func initialize_sprite() -> void:
 	sprite.texture = player_data.texture
+
+
+# Sets up child managers like the health manager
+func initialize_child_objects() -> void:
+	health_manager.health_data = player_data.health
+	damage_manager.damage_data = player_data.damage
 
 
 # Handles state-changes and switches to new state
