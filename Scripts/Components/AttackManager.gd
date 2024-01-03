@@ -1,6 +1,7 @@
 extends Node
 class_name AttackManager
 
+@export var faction : UTILS.FACTIONS = UTILS.FACTIONS.ENEMY
 @export var projectile_prefab : PackedScene
 
 var delay : float = 0
@@ -35,10 +36,7 @@ func attack(potion_data : PotionData, velocity : Vector2, projectile_direction :
 # Spanwns projectile with behavior configured in potion_data with the given velocity and projectile direction
 func create_projectile(potion_data : PotionData, velocity : Vector2, projectile_direction : Vector2) -> void:
 	var projectile : Projectile = projectile_prefab.instantiate() as Projectile
-	projectile.position = get_parent().global_position
-	
-	# ignores player velocity
-	projectile.direction = projectile_direction.normalized()
+	projectile.initialize(get_parent(), get_parent().global_position, projectile_direction.normalized(), faction)
 	
 	get_tree().root.add_child(projectile)
 	

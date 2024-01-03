@@ -5,11 +5,20 @@ class_name Projectile
 @export var damage_manager : DamageManager
 
 var direction : Vector2 = Vector2.ZERO
+var origin_node : Node2D
 
 
 # Ready
 func _ready() -> void:
 	initialize_child_objects()
+
+
+# Sets up projectile object with variables passed on creation
+func initialize(projectile_origin_node : Node2D, projectile_position : Vector2, projectile_direction : Vector2, projectile_faction : UTILS.FACTIONS) -> void:
+	origin_node = projectile_origin_node
+	position = projectile_position
+	direction = projectile_direction
+	damage_manager.faction = projectile_faction
 
 
 # Sets up child managers like the damage manager
@@ -25,6 +34,9 @@ func _physics_process(delta : float) -> void:
 # Handles collision
 func handle_collision(other_node : Node2D) -> void:
 	print("Projectile node entered: " + str(other_node))
+	
+	if other_node.get_instance_id() == origin_node.get_instance_id():
+		return
 	
 	if projectile_data.destroy_on_contact == true:
 		queue_free()

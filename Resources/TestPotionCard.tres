@@ -24,6 +24,7 @@ contact_damage = 4
 script = ExtResource("3_lbhpq")
 damage = SubResource("Resource_cr1rr")
 speed = 25.0
+destroy_on_contact = true
 
 [sub_resource type="Resource" id="Resource_62pwi"]
 script = ExtResource("3_5mp4c")

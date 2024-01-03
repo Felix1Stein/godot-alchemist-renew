@@ -44,10 +44,12 @@ attack_manager_secondary = NodePath("../AttackManager_Secondary")
 
 [node name="AttackManager_Primary" type="Node" parent="."]
 script = ExtResource("4_ge5q2")
+faction = 0
 projectile_prefab = ExtResource("5_m6eus")
 
 [node name="AttackManager_Secondary" type="Node" parent="."]
 script = ExtResource("4_ge5q2")
+faction = 0
 projectile_prefab = ExtResource("5_m6eus")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -62,6 +64,7 @@ debug_color = Color(0, 0, 0, 0.454902)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("8_lpnq2")
+faction = 0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HealthManager"]
 position = Vector2(0, 0.5)
@@ -72,6 +75,7 @@ debug_color = Color(0.921569, 0, 0.254902, 0.227451)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("9_ulep0")
+faction = 0
 
 [node name="Attackbox" type="CollisionShape2D" parent="DamageManager"]
 position = Vector2(0, 0.5)

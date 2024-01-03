@@ -1,4 +1,7 @@
 extends Node
+class_name UTILS
+
+enum FACTIONS {PLAYER, ENEMY}
 
 
 # Global setup functions

@@ -1,6 +1,7 @@
 extends Node
 class_name HealthManager
 
+@export var faction : UTILS.FACTIONS = UTILS.FACTIONS.ENEMY
 var health_data : HealthData
 
 
