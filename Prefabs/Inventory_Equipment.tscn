@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c1gi4nig56rx" path="res://Assets/UserInterface/TriggerArea.png" id="2_ovwhm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yp4ax"]
-radius = 8.0
+radius = 12.0
 
 [node name="Equipment_Inventory" type="Area2D" node_paths=PackedStringArray("item_slot_node", "item_selector_node", "drop_position_node")]
 collision_layer = 8

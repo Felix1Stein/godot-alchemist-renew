@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/DataContainers/InputBindingData.gd" id="3_itskq"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/InventoryData.gd" id="3_t2xli"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/PlayerData.gd" id="4_epkx2"]
-[ext_resource type="Texture2D" uid="uid://cy2xl0vwco18c" path="res://Assets/Characters/Wizzard.png" id="5_w4rja"]
+[ext_resource type="Texture2D" uid="uid://cf48xwu5vrih4" path="res://Assets/Characters/WizzardLarge.png" id="7_ohhvg"]
 
 [sub_resource type="Curve" id="Curve_sml6q"]
 max_value = 6.0
@@ -57,7 +57,7 @@ items = Array[Resource("res://Scripts/DataContainers/ItemData.gd")]([])
 [resource]
 script = ExtResource("4_epkx2")
 player_name = "PLAYER 1"
-texture = ExtResource("5_w4rja")
+texture = ExtResource("7_ohhvg")
 health = SubResource("Resource_qgn7e")
 damage = SubResource("Resource_rihn4")
 inventory = SubResource("Resource_vr7hp")

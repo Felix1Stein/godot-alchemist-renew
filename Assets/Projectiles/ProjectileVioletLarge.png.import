@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmeaqe0n2f7ks"
-path="res://.godot/imported/Devil_Violet.png-693a740d90b9081b31dbe6741588d814.ctex"
+uid="uid://brvvwowvcrm4o"
+path="res://.godot/imported/ProjectileVioletLarge.png-a17bf42d5c2e961699e630eca51e96a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Devil_Violet.png"
-dest_files=["res://.godot/imported/Devil_Violet.png-693a740d90b9081b31dbe6741588d814.ctex"]
+source_file="res://Assets/Projectiles/ProjectileVioletLarge.png"
+dest_files=["res://.godot/imported/ProjectileVioletLarge.png-a17bf42d5c2e961699e630eca51e96a5.ctex"]
 
 [params]
 

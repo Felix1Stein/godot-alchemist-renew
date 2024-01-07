@@ -4,8 +4,10 @@ class_name EnemyBehavior
 @export var speed : float = 50
 @export var engage_min_distance : float = 75
 @export var retreat_max_distance : float = 50
+@export var health_data : HealthData
 
 @export var attack_manager : AttackManager
+@export var health_manager : HealthManager
 @export var potion : PotionData
 
 var target : Node2D = null
@@ -19,6 +21,7 @@ var state : STATES = STATES.IDLE
 # Ready
 func _ready():
 	anchor_position = get_parent().position
+	health_manager.health_data = health_data
 
 
 # Physics process

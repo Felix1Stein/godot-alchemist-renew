@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://brgo0jichi0f3"]
+[gd_scene load_steps=31 format=3 uid="uid://brgo0jichi0f3"]
 
 [ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
 [ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
@@ -10,14 +10,25 @@
 [ext_resource type="FontFile" uid="uid://cutaxq6g3wp0b" path="res://Assets/Fonts/MonoSpaceMicroFont.png" id="6_iq147"]
 [ext_resource type="PackedScene" uid="uid://dru6iisxs5fu1" path="res://Prefabs/PotionGenerationPipeline/PotionCreator.tscn" id="6_k8wag"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyBehavior.gd" id="7_aslfw"]
-[ext_resource type="Texture2D" uid="uid://bmeaqe0n2f7ks" path="res://Assets/Characters/Devil_Violet.png" id="7_ebt43"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/PotionData.gd" id="8_33twk"]
 [ext_resource type="Script" path="res://Scripts/Components/TargetChecker.gd" id="8_hrs4x"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/HealthData.gd" id="8_msk3r"]
 [ext_resource type="Script" path="res://Scripts/Components/AttackManager.gd" id="8_wrfba"]
 [ext_resource type="PackedScene" uid="uid://df3h7qev1b10s" path="res://Prefabs/Projectile.tscn" id="9_yf2lg"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthManager.gd" id="11_gl1ft"]
+[ext_resource type="Texture2D" uid="uid://bluu31wvkf88l" path="res://Assets/Characters/ThornedVioletSlime.png" id="12_mi0ji"]
+[ext_resource type="PackedScene" uid="uid://cgvc4m4s8kl3e" path="res://Prefabs/Potion.tscn" id="13_joau8"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/DamageData.gd" id="14_dh0jn"]
+[ext_resource type="Script" path="res://Scripts/DataContainers/ProjectileData.gd" id="15_0a5sb"]
+[ext_resource type="Texture2D" uid="uid://iqq5agn1ns1d" path="res://Assets/Items/Item_Potion_Violet.png" id="16_b3534"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqhpy"]
 radius = 12.0
+
+[sub_resource type="Resource" id="Resource_wjxl1"]
+script = ExtResource("8_msk3r")
+max_health_points = 3
+health_points = 3
 
 [sub_resource type="Resource" id="Resource_jimux"]
 script = ExtResource("8_33twk")
@@ -28,11 +39,35 @@ name = "ITEM NAME"
 description = "ITEM DESCRIPTION"
 gold_value = 0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_n7fop"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltvhh"]
+size = Vector2(20, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hv3hc"]
+size = Vector2(22, 18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bstd"]
 radius = 1.0
+
+[sub_resource type="Resource" id="Resource_16npd"]
+script = ExtResource("14_dh0jn")
+contact_damage = 1
+
+[sub_resource type="Resource" id="Resource_i6ypg"]
+script = ExtResource("15_0a5sb")
+damage = SubResource("Resource_16npd")
+speed = 100.0
+destroy_on_contact = true
+
+[sub_resource type="Resource" id="Resource_xn05u"]
+script = ExtResource("8_33twk")
+max_uses = 25
+uses = 25
+usage_delay = 0.5
+projectile_data = SubResource("Resource_i6ypg")
+name = "TEST ITEM NAME"
+description = "TEST ITEM DESCRIPTION"
+texture = ExtResource("16_b3534")
+gold_value = 0
 
 [node name="MainScene" type="Node2D"]
 
@@ -53,9 +88,11 @@ debug_color = Color(0, 0.65098, 0.168627, 0.419608)
 [node name="TinyDevil" type="Area2D" parent="Entities" groups=["Enemy"]]
 position = Vector2(248, 256)
 
-[node name="EnemyBehavior" type="Node" parent="Entities/TinyDevil" node_paths=PackedStringArray("attack_manager")]
+[node name="EnemyBehavior" type="Node" parent="Entities/TinyDevil" node_paths=PackedStringArray("attack_manager", "health_manager")]
 script = ExtResource("7_aslfw")
+health_data = SubResource("Resource_wjxl1")
 attack_manager = NodePath("../AttackManager")
+health_manager = NodePath("../HealthManager")
 potion = SubResource("Resource_jimux")
 
 [node name="AttackManager" type="Node" parent="Entities/TinyDevil"]
@@ -63,7 +100,16 @@ script = ExtResource("8_wrfba")
 projectile_prefab = ExtResource("9_yf2lg")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="Entities/TinyDevil"]
-shape = SubResource("CircleShape2D_n7fop")
+shape = SubResource("RectangleShape2D_ltvhh")
+
+[node name="HealthManager" type="Area2D" parent="Entities/TinyDevil"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("11_gl1ft")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Entities/TinyDevil/HealthManager"]
+shape = SubResource("RectangleShape2D_hv3hc")
+debug_color = Color(0.921569, 0, 0.254902, 0.227451)
 
 [node name="TargetChecker" type="Area2D" parent="Entities/TinyDevil" node_paths=PackedStringArray("influence_box")]
 collision_layer = 8
@@ -77,10 +123,13 @@ debug_color = Color(0.933333, 0, 0.639216, 0.105882)
 
 [node name="Sprite" type="Sprite2D" parent="Entities/TinyDevil"]
 texture_filter = 1
-texture = ExtResource("7_ebt43")
-offset = Vector2(0, -0.5)
+texture = ExtResource("12_mi0ji")
 
 [node name="Items" type="Node2D" parent="."]
+
+[node name="Potion" parent="Items" instance=ExtResource("13_joau8")]
+position = Vector2(64, 160)
+item_data = SubResource("Resource_xn05u")
 
 [node name="Ingredient" parent="Items" instance=ExtResource("1_nll84")]
 position = Vector2(76, 190)

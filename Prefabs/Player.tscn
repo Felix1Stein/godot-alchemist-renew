@@ -5,21 +5,21 @@
 [ext_resource type="Script" path="res://Scripts/Components/PlayerMovement.gd" id="3_tkdwy"]
 [ext_resource type="Script" path="res://Scripts/Components/PlayerInventoryManager.gd" id="4_2ajif"]
 [ext_resource type="Script" path="res://Scripts/Components/AttackManager.gd" id="4_ge5q2"]
-[ext_resource type="Texture2D" uid="uid://cy2xl0vwco18c" path="res://Assets/Characters/Wizzard.png" id="4_kcavx"]
 [ext_resource type="PackedScene" uid="uid://df3h7qev1b10s" path="res://Prefabs/Projectile.tscn" id="5_m6eus"]
 [ext_resource type="PackedScene" uid="uid://ca66btq5a5yue" path="res://Prefabs/Inventory.tscn" id="5_q7ju7"]
 [ext_resource type="PackedScene" uid="uid://dwrxxsspbsq1f" path="res://Prefabs/Inventory_Equipment.tscn" id="6_2u3sn"]
+[ext_resource type="Texture2D" uid="uid://cf48xwu5vrih4" path="res://Assets/Characters/WizzardLarge.png" id="7_1u6t6"]
 [ext_resource type="Script" path="res://Scripts/Components/HealthManager.gd" id="8_lpnq2"]
 [ext_resource type="Script" path="res://Scripts/Components/DamageManager.gd" id="9_ulep0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vmpq1"]
-size = Vector2(16, 16)
+size = Vector2(14, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1nrs"]
-size = Vector2(18, 19)
+size = Vector2(16, 23)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7v2hc"]
-size = Vector2(18, 19)
+size = Vector2(18, 24)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_movement", "player_inventory_manager", "sprite", "health_manager", "damage_manager")]
 script = ExtResource("1_0hqv5")
@@ -54,9 +54,11 @@ projectile_prefab = ExtResource("5_m6eus")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("4_kcavx")
+position = Vector2(-0.5, 0)
+texture = ExtResource("7_1u6t6")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_vmpq1")
 debug_color = Color(0, 0, 0, 0.454902)
 
@@ -67,7 +69,7 @@ script = ExtResource("8_lpnq2")
 faction = 0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HealthManager"]
-position = Vector2(0, 0.5)
+position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_h1nrs")
 debug_color = Color(0.921569, 0, 0.254902, 0.227451)
 
@@ -78,7 +80,7 @@ script = ExtResource("9_ulep0")
 faction = 0
 
 [node name="Attackbox" type="CollisionShape2D" parent="DamageManager"]
-position = Vector2(0, 0.5)
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_7v2hc")
 debug_color = Color(0.87451, 0.34902, 0.294118, 0.270588)
 

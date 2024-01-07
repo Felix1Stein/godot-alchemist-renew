@@ -7,6 +7,8 @@
 radius = 8.0
 
 [node name="Ingredient" type="Area2D" node_paths=PackedStringArray("item_renderer")]
+collision_layer = 8
+collision_mask = 16
 script = ExtResource("2_anlel")
 item_renderer = NodePath("IngredientRenderer")
 

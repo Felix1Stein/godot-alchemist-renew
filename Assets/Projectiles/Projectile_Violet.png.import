@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0djf7ak4wsq2"
-path="res://.godot/imported/Skull.png-0b404499d5ae13329491de1522dbcadf.ctex"
+uid="uid://x6ucswvb1bwh"
+path="res://.godot/imported/Projectile_Violet.png-ffaec71bea66d9820f240b68f06efbc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Skull.png"
-dest_files=["res://.godot/imported/Skull.png-0b404499d5ae13329491de1522dbcadf.ctex"]
+source_file="res://Assets/Projectiles/Projectile_Violet.png"
+dest_files=["res://.godot/imported/Projectile_Violet.png-ffaec71bea66d9820f240b68f06efbc7.ctex"]
 
 [params]
 

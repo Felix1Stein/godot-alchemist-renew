@@ -90,3 +90,9 @@ toggle_tooltips={
 2d_physics/layer_2="HealthComponents"
 2d_physics/layer_3="DamageComponents"
 2d_physics/layer_4="Trigger"
+2d_physics/layer_5="Projectiles"
+2d_physics/layer_6="Items"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
