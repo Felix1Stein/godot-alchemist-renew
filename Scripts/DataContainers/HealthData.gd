@@ -15,6 +15,10 @@ func _init(max_health_points : int = 1, health_points : int = 1):
 	self.health_points = health_points
 
 
+# Returns true if object is dead (hp <= 0)
+func is_dead() -> bool:
+	return health_points <= 0
+
 # Modifies health data according ot the damage_data ruleset
 func attack(damage_data : DamageData) -> void:
 	change_health(- damage_data.contact_damage)

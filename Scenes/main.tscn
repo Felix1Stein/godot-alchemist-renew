@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://brgo0jichi0f3"]
+[gd_scene load_steps=32 format=3 uid="uid://brgo0jichi0f3"]
 
 [ext_resource type="PackedScene" uid="uid://c1f6p6wgam2ir" path="res://Prefabs/Ingredient.tscn" id="1_nll84"]
 [ext_resource type="PackedScene" uid="uid://dnpwuarnje8f4" path="res://Prefabs/Player.tscn" id="1_uw7ri"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://Scripts/DataContainers/DamageData.gd" id="14_dh0jn"]
 [ext_resource type="Script" path="res://Scripts/DataContainers/ProjectileData.gd" id="15_0a5sb"]
 [ext_resource type="Texture2D" uid="uid://iqq5agn1ns1d" path="res://Assets/Items/Item_Potion_Violet.png" id="16_b3534"]
+[ext_resource type="Texture2D" uid="uid://c1o3to4vcx102" path="res://Assets/Characters/Shopkeeper.png" id="22_hshht"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqhpy"]
 radius = 12.0
@@ -165,6 +166,10 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_iq147")
 text = "HP: X/X"
 vertical_alignment = 2
+
+[node name="Shopkeeper" type="Sprite2D" parent="."]
+position = Vector2(269, 187)
+texture = ExtResource("22_hshht")
 
 [connection signal="area_entered" from="Entities/TinyDevil/TargetChecker" to="Entities/TinyDevil/TargetChecker" method="_on_area_entered"]
 [connection signal="area_exited" from="Entities/TinyDevil/TargetChecker" to="Entities/TinyDevil/TargetChecker" method="_on_area_exited"]
